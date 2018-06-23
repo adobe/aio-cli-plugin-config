@@ -1,0 +1,10 @@
+*-debug.log
+*-error.log
+/.nyc_output
+/dist
+/yarn.lock
+/tmp
+node_modules
+.DS_Store
+junit.xml
+/coverage
