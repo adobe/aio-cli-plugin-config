@@ -67,6 +67,7 @@
       "default",
       "jest-junit"
     ],
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupTestFrameworkScriptFile": "./jest.setup.js"
   }
 }
