@@ -11,6 +11,8 @@ governing permissions and limitations under the License.
 -->
 
 [![Build Status](https://travis-ci.org/adobe/aio-cli-plugin-config.svg?branch=master)](https://travis-ci.org/adobe/aio-cli-plugin-config)
+[![Build status](https://ci.appveyor.com/api/projects/status/1pimm457lov4f1vr/branch/master?svg=true)](https://ci.appveyor.com/project/shazron/aio-cli-plugin-config/branch/master)
+
 
 aio-cli-plugin-config
 =====================
