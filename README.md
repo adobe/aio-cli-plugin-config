@@ -30,7 +30,7 @@ $ npm install -g @adobe/aio-cli-plugin-config
 $ ./bin/run COMMAND
 running command...
 $ ./bin/run (-v|--version|version)
-@adobe/aio-cli-plugin-config/1.0.4 darwin-x64 node-v8.11.4
+@adobe/aio-cli-plugin-config/1.0.5 darwin-x64 node-v8.11.2
 $ ./bin/run --help [COMMAND]
 USAGE
   $ ./bin/run COMMAND
@@ -61,7 +61,7 @@ EXAMPLES
   $ aio config:clear
 ```
 
-_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.4/src/commands/config/index.js)_
+_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.5/src/commands/config/index.js)_
 
 ## `./bin/run config:clear`
 
@@ -72,7 +72,7 @@ USAGE
   $ ./bin/run config:clear
 ```
 
-_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.4/src/commands/config/clear.js)_
+_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.5/src/commands/config/clear.js)_
 
 ## `./bin/run config:delete [KEY]`
 
@@ -86,7 +86,7 @@ ALIASES
   $ ./bin/run config:del
 ```
 
-_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.4/src/commands/config/delete.js)_
+_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.5/src/commands/config/delete.js)_
 
 ## `./bin/run config:get [KEY]`
 
@@ -97,7 +97,7 @@ USAGE
   $ ./bin/run config:get [KEY]
 ```
 
-_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.4/src/commands/config/get.js)_
+_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.5/src/commands/config/get.js)_
 
 ## `./bin/run config:set [KEY] [VALUE]`
 
@@ -114,5 +114,5 @@ OPTIONS
                              application/json)
 ```
 
-_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.4/src/commands/config/set.js)_
+_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.5/src/commands/config/set.js)_
 <!-- commandsstop -->
