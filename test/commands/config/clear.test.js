@@ -22,3 +22,6 @@ test('clear', async () => {
   return expect(ClearCommand.run([])).resolves.toBeTruthy()
 })
 
+test('clear a key', async () => {
+  return expect(ClearCommand.run(['mykey'])).resolves.toBeTruthy()
+})
