@@ -14,6 +14,18 @@ const {Command, flags} = require('@oclif/command')
 const Conf = require('conf')
 const path = require('path')
 const fs = require('fs')
+const os = require('os')
+
+async function processDataForMimeType(data, mimeType) {
+  switch (mimeType) {
+  case 'application/json':
+    return JSON.parse(data)
+  case 'application/x-pem-file':
+    return data.split(os.EOL)
+  default:
+    return data
+  }
+}
 
 class SetCommand extends Command {
   async run() {
@@ -29,7 +41,7 @@ class SetCommand extends Command {
       })
     }
 
-    return this.set(args.key, args.value, flags.file)
+    return this.set(args.key, args.value)
   }
 
   async set(key, value) {
@@ -52,9 +64,7 @@ class SetCommand extends Command {
       }
 
       let data = fs.readFileSync(resolvedFilePath, encoding)
-      if (mimeType === 'application/json') {
-        data = JSON.parse(data)
-      }
+      data = await processDataForMimeType(data, mimeType)
 
       const conf = new Conf()
       conf.set(key, data)
