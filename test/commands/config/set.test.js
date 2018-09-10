@@ -14,6 +14,7 @@ const SetCommand = require('../../../src/commands/config/set.js')
 const {stdout} = require('stdout-stderr')
 const path = require('path')
 const sampleJsonFilePath = path.join(__dirname, '../../fixtures/config-sample.json')
+const samplePemFilePath = path.join(__dirname, '../../fixtures/sample.pem')
 // auto-mocked in __mocks__ folder
 jest.mock('conf')
 
@@ -44,6 +45,12 @@ test('value is file path (string)', async () => {
 test('value is file path (json)', async () => {
   const p = sampleJsonFilePath
   const val = await SetCommand.run(['foo', p, '--file', '--mime-type=application/json'])
+  return expect(val).toEqual(true)
+})
+
+test('value is file path (pem)', async () => {
+  const p = samplePemFilePath
+  const val = await SetCommand.run(['foo', p, '--file', '--mime-type=application/x-pem-file'])
   return expect(val).toEqual(true)
 })
 
