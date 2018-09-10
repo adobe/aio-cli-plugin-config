@@ -15,16 +15,26 @@ const Conf = require('conf')
 
 class ClearCommand extends Command {
   async run() {
-    return this.clear()
+    const {args} = this.parse(ClearCommand)
+    return this.clear(args.key)
   }
 
-  async clear() {
+  async clear(key) {
     const conf = new Conf()
-    conf.clear()
+    if (key) {
+      conf.delete(key)
+    } else {
+      conf.clear()
+    }
+
     return true
   }
 }
 
-ClearCommand.description = 'clears all persistent config values'
+ClearCommand.args = [
+  {name: 'key'},
+]
+
+ClearCommand.description = 'clears all persistent config values, or for a specific key'
 
 module.exports = ClearCommand
