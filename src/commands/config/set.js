@@ -36,8 +36,8 @@ class SetCommand extends Command {
 
     if (flags.file) {
       return this.setFromFilePath(args.key, args.value, flags['mime-type'])
-      .catch(e => {
-        this.error(e.message)
+      .catch(error => {
+        this.error(error.message)
       })
     }
 
@@ -68,8 +68,8 @@ class SetCommand extends Command {
 
       const conf = new Conf()
       conf.set(key, data)
-    } catch (e) {
-      return Promise.reject(new Error(e.message))
+    } catch (error) {
+      return Promise.reject(new Error(error.message))
     }
 
     return Promise.resolve(true)
