@@ -33,7 +33,7 @@ $ npm install -g @adobe/aio-cli-plugin-config
 $ ./bin/run COMMAND
 running command...
 $ ./bin/run (-v|--version|version)
-@adobe/aio-cli-plugin-config/1.0.6 darwin-x64 node-v8.11.2
+@adobe/aio-cli-plugin-config/1.0.7 darwin-x64 node-v8.11.4
 $ ./bin/run --help [COMMAND]
 USAGE
   $ ./bin/run COMMAND
@@ -42,11 +42,11 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`./bin/run config`](#bin-run-config)
-* [`./bin/run config:clear [KEY]`](#bin-run-configclear-key)
-* [`./bin/run config:delete [KEY]`](#bin-run-configdelete-key)
-* [`./bin/run config:get [KEY]`](#bin-run-configget-key)
-* [`./bin/run config:set [KEY] [VALUE]`](#bin-run-configset-key-value)
+* [`./bin/run config`](#binrun-config)
+* [`./bin/run config:clear [KEY]`](#binrun-configclear-key)
+* [`./bin/run config:delete [KEY]`](#binrun-configdelete-key)
+* [`./bin/run config:get [KEY]`](#binrun-configget-key)
+* [`./bin/run config:set [KEY] [VALUE]`](#binrun-configset-key-value)
 
 ## `./bin/run config`
 
@@ -64,7 +64,7 @@ EXAMPLES
   $ aio config:clear
 ```
 
-_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.6/src/commands/config/index.js)_
+_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/index.js)_
 
 ## `./bin/run config:clear [KEY]`
 
@@ -75,7 +75,7 @@ USAGE
   $ ./bin/run config:clear [KEY]
 ```
 
-_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.6/src/commands/config/clear.js)_
+_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/clear.js)_
 
 ## `./bin/run config:delete [KEY]`
 
@@ -89,7 +89,7 @@ ALIASES
   $ ./bin/run config:del
 ```
 
-_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.6/src/commands/config/delete.js)_
+_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/delete.js)_
 
 ## `./bin/run config:get [KEY]`
 
@@ -100,7 +100,7 @@ USAGE
   $ ./bin/run config:get [KEY]
 ```
 
-_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.6/src/commands/config/get.js)_
+_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/get.js)_
 
 ## `./bin/run config:set [KEY] [VALUE]`
 
@@ -117,5 +117,5 @@ OPTIONS
                              application/json)
 ```
 
-_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.6/src/commands/config/set.js)_
+_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/set.js)_
 <!-- commandsstop -->
