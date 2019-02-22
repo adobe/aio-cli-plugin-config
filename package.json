@@ -11,7 +11,7 @@
     "conf": "^2.1.0"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1",
+    "@oclif/dev-cli": "^1.21.2",
     "@oclif/plugin-help": "^2.1.4",
     "@oclif/test": "^1",
     "eslint": "^5.9.0",
