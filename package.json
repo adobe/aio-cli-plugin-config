@@ -18,6 +18,12 @@
     "codecov": "^3.2.0",
     "eslint": "^5.15.1",
     "eslint-config-oclif": "^3.1.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.13.10",
+    "eslint-plugin-jest": "^22.1.2",
+    "eslint-plugin-node": "^7.0.0",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.1.0",
     "jest-haste-map": "^24.5.0",
     "jest-junit": "^6.0.0",
@@ -51,8 +57,9 @@
   "main": "src/index.js",
   "repository": "adobe/aio-cli-plugin-config",
   "scripts": {
-    "posttest": "eslint src",
+    "eslint": "eslint src",
     "test": "npm run unit-tests",
+    "posttest": "npm run eslint",
     "unit-tests": "jest --ci",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",
@@ -72,7 +79,7 @@
     ],
     "testEnvironment": "node",
     "setupFilesAfterEnv": [
-      "./jest.setup.js"
+      "./test/jest.setup.js"
     ]
   }
 }

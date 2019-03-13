@@ -10,47 +10,47 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const {Command, flags} = require('@oclif/command')
+const { Command, flags } = require('@oclif/command')
 const Conf = require('conf')
 const path = require('path')
 const fs = require('fs')
 const os = require('os')
 
-async function processDataForMimeType(data, mimeType) {
+async function processDataForMimeType (data, mimeType) {
   switch (mimeType) {
-  case 'application/json':
-    return JSON.parse(data)
-  case 'application/x-pem-file':
-    return data.split(os.EOL)
-  default:
-    return data
+    case 'application/json':
+      return JSON.parse(data)
+    case 'application/x-pem-file':
+      return data.split(os.EOL)
+    default:
+      return data
   }
 }
 
 class SetCommand extends Command {
-  async run() {
-    const {args, flags} = this.parse(SetCommand)
+  async run () {
+    const { args, flags } = this.parse(SetCommand)
     if (!args.key || !args.value) {
       return Promise.resolve(false)
     }
 
     if (flags.file) {
       return this.setFromFilePath(args.key, args.value, flags['mime-type'])
-      .catch(error => {
-        this.error(error.message)
-      })
+        .catch(error => {
+          this.error(error.message)
+        })
     }
 
     return this.set(args.key, args.value)
   }
 
-  async set(key, value) {
+  async set (key, value) {
     const conf = new Conf()
     conf.set(key, value)
     return Promise.resolve(true)
   }
 
-  async setFromFilePath(key, filePath, mimeType = 'text/plain') {
+  async setFromFilePath (key, filePath, mimeType = 'text/plain') {
     if (!filePath) {
       return Promise.reject(new Error('Can\'t set file path: it is null or undefined.'))
     }
@@ -79,13 +79,13 @@ class SetCommand extends Command {
 SetCommand.description = 'sets a persistent configuration value'
 
 SetCommand.args = [
-  {name: 'key'},
-  {name: 'value'},
+  { name: 'key' },
+  { name: 'value' }
 ]
 
 SetCommand.flags = {
-  file: flags.boolean({char: 'f', description: 'the value is a path to a file to read the config value from'}),
-  'mime-type': flags.string({char: 't', description: 'the mime-type of the file path with --file/-f (defaults to plain text, available: application/json)'}),
+  file: flags.boolean({ char: 'f', description: 'the value is a path to a file to read the config value from' }),
+  'mime-type': flags.string({ char: 't', description: 'the mime-type of the file path with --file/-f (defaults to plain text, available: application/json)' })
 }
 
 module.exports = SetCommand

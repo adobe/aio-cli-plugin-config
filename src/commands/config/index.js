@@ -10,11 +10,11 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const {Command} = require('@oclif/command')
+const { Command } = require('@oclif/command')
 const GetCommand = require('./get')
 
 class ConfigCommand extends Command {
-  async run() {
+  async run () {
     // when this is run, no params are needed
     // which is the same as `config:get` (get contents of config)
     return GetCommand.run([])
@@ -30,7 +30,7 @@ ConfigCommand.examples = [
   '$ aio config:set KEY VALUE',
   '$ aio config:delete KEY',
   '$ aio config:del KEY',
-  '$ aio config:clear',
+  '$ aio config:clear'
 ]
 
 module.exports = ConfigCommand

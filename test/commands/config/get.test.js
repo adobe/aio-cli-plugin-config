@@ -11,16 +11,12 @@ governing permissions and limitations under the License.
 */
 
 const GetCommand = require('../../../src/commands/config/get.js')
-const {stdout} = require('stdout-stderr')
 // auto-mocked in __mocks__
 jest.mock('conf')
 
-beforeAll(() => stdout.start())
-afterAll(() => stdout.stop())
-
 test('no key', async () => {
   let val = await GetCommand.run([])
-  return expect(val).toEqual({known_key: 'known_value'})
+  return expect(val).toEqual({ known_key: 'known_value' })
 })
 
 test('undefined key', async () => {
@@ -32,4 +28,3 @@ test('defined key', async () => {
   let val = await GetCommand.run(['known_key'])
   return expect(val).toEqual('known_value')
 })
-

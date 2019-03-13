@@ -13,10 +13,6 @@ governing permissions and limitations under the License.
 const ConfigCommand = require('../../../src/commands/config')
 const GetCommand = require('../../../src/commands/config/get')
 const ConfigExports = require('../../../src')
-const {stdout} = require('stdout-stderr')
-
-beforeAll(() => stdout.start())
-afterAll(() => stdout.stop())
 
 test('call with no params', async () => {
   let spy = jest.spyOn(ConfigCommand, 'run')
@@ -36,4 +32,3 @@ test('exports', async () => {
   expect(typeof ConfigExports.delete).toEqual('function')
   expect(typeof ConfigExports.clear).toEqual('function')
 })
-
