@@ -11,15 +11,11 @@ governing permissions and limitations under the License.
 */
 
 const SetCommand = require('../../../src/commands/config/set.js')
-const {stdout} = require('stdout-stderr')
 const path = require('path')
 const sampleJsonFilePath = path.join(__dirname, '../../fixtures/config-sample.json')
 const samplePemFilePath = path.join(__dirname, '../../fixtures/sample.pem')
 // auto-mocked in __mocks__ folder
 jest.mock('conf')
-
-beforeAll(() => stdout.start())
-afterAll(() => stdout.stop())
 
 test('no key or value', async () => {
   const val = await SetCommand.run([])

@@ -11,12 +11,8 @@ governing permissions and limitations under the License.
 */
 
 const DelCommand = require('../../../src/commands/config/delete.js')
-const {stdout} = require('stdout-stderr')
 // auto-mocked in __mocks__ folder
 jest.mock('conf')
-
-beforeAll(() => stdout.start())
-afterAll(() => stdout.stop())
 
 test('no key', async () => {
   let val = await DelCommand.run([])
@@ -33,4 +29,3 @@ test('defined key', async () => {
   let val = await DelCommand.run(['known_key'])
   return expect(val).toEqual(true)
 })
-

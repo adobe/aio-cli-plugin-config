@@ -13,7 +13,7 @@ governing permissions and limitations under the License.
 const mock = jest.fn().mockImplementation(
   function () { // constructor
     let _store = {
-      known_key: 'known_value',
+      known_key: 'known_value'
     }
 
     // set properties and functions for object
@@ -21,7 +21,7 @@ const mock = jest.fn().mockImplementation(
     // see https://github.com/facebook/jest/issues/2982
     Object.defineProperty(this, 'store',
       {
-        get: jest.fn(() => _store),
+        get: jest.fn(() => _store)
       })
 
     this.get = jest.fn(k => _store[k])
@@ -31,4 +31,3 @@ const mock = jest.fn().mockImplementation(
   })
 
 module.exports = mock
-

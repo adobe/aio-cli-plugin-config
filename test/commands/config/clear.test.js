@@ -11,12 +11,9 @@ governing permissions and limitations under the License.
 */
 
 const ClearCommand = require('../../../src/commands/config/clear.js')
-const {stdout} = require('stdout-stderr')
+
 // auto-mocked in __mocks__ folder
 jest.mock('conf')
-
-beforeAll(() => stdout.start())
-afterAll(() => stdout.stop())
 
 test('clear', async () => {
   return expect(ClearCommand.run([])).resolves.toBeTruthy()
