@@ -10,12 +10,12 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const {Command} = require('@oclif/command')
+const { Command } = require('@oclif/command')
 const Conf = require('conf')
 
 class DelCommand extends Command {
-  async run() {
-    const {args} = this.parse(DelCommand)
+  async run () {
+    const { args } = this.parse(DelCommand)
     if (!args.key) {
       return false
     }
@@ -23,7 +23,7 @@ class DelCommand extends Command {
     return this.delete(args.key)
   }
 
-  async delete(key) {
+  async delete (key) {
     const conf = new Conf()
     conf.delete(key)
     return true
@@ -33,11 +33,11 @@ class DelCommand extends Command {
 DelCommand.description = 'delete a persistent config value'
 
 DelCommand.args = [
-  {name: 'key'},
+  { name: 'key' }
 ]
 
 DelCommand.aliases = [
-  'config:del',
+  'config:del'
 ]
 
 module.exports = DelCommand

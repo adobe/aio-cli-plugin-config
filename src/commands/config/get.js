@@ -10,12 +10,12 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const {Command} = require('@oclif/command')
+const { Command } = require('@oclif/command')
 const Conf = require('conf')
 
 class GetCommand extends Command {
-  async run() {
-    const {args} = this.parse(GetCommand)
+  async run () {
+    const { args } = this.parse(GetCommand)
 
     let retVal = await this.get(args.key)
     if (retVal) {
@@ -24,7 +24,7 @@ class GetCommand extends Command {
     return retVal
   }
 
-  async get(key) {
+  async get (key) {
     const conf = new Conf()
     return (key) ? conf.get(key) : conf.store
   }
@@ -33,7 +33,7 @@ class GetCommand extends Command {
 GetCommand.description = 'gets a persistent config value'
 
 GetCommand.args = [
-  {name: 'key'},
+  { name: 'key' }
 ]
 
 module.exports = GetCommand

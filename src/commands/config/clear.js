@@ -10,16 +10,16 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const {Command} = require('@oclif/command')
+const { Command } = require('@oclif/command')
 const Conf = require('conf')
 
 class ClearCommand extends Command {
-  async run() {
-    const {args} = this.parse(ClearCommand)
+  async run () {
+    const { args } = this.parse(ClearCommand)
     return this.clear(args.key)
   }
 
-  async clear(key) {
+  async clear (key) {
     const conf = new Conf()
     if (key) {
       conf.delete(key)
@@ -32,7 +32,7 @@ class ClearCommand extends Command {
 }
 
 ClearCommand.args = [
-  {name: 'key'},
+  { name: 'key' }
 ]
 
 ClearCommand.description = 'clears all persistent config values, or for a specific key'

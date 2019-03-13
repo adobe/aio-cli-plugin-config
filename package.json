@@ -56,8 +56,9 @@
   "main": "src/index.js",
   "repository": "adobe/aio-cli-plugin-config",
   "scripts": {
-    "posttest": "eslint src",
+    "eslint": "eslint src",
     "test": "npm run unit-tests",
+    "posttest": "npm run eslint",
     "unit-tests": "jest --ci",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",

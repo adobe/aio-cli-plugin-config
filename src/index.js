@@ -21,5 +21,5 @@ module.exports = {
   set: new SetCommand().set,
   get: new GetCommand().get,
   delete: new DelCommand().delete,
-  clear: new ClearCommand().clear,
+  clear: new ClearCommand().clear
 }
