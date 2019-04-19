@@ -28,7 +28,7 @@ DeleteCommand.args = [
   { name: 'keys...', required: true }
 ]
 
-DeleteCommand.aliases = ['del', 'rm']
+DeleteCommand.aliases = ['config:del', 'config:rm']
 DeleteCommand.flags = BaseCommand.flags
 DeleteCommand.strict = false
 
