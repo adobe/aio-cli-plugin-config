@@ -14,24 +14,20 @@
     "@oclif/dev-cli": "^1.21.2",
     "@oclif/plugin-help": "^2.1.4",
     "@oclif/test": "^1",
-    "acorn": "^6.1.1",
-    "codecov": "^3.2.0",
+    "babel-runtime": "^6.26.0",
     "eslint": "^5.15.1",
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.13.10",
     "eslint-plugin-jest": "^22.1.2",
-    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-node": "^8.0.0",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.1.0",
-    "jest-haste-map": "^24.5.0",
-    "jest-junit": "^6.0.0",
-    "jest-resolve": "^24.5.0",
-    "stdout-stderr": "^0.1.9"
+    "jest-plugin-fs": "^2.9.0"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">= 8.10.0"
   },
   "files": [
     "/oclif.manifest.json",
@@ -50,36 +46,17 @@
     ],
     "topics": {
       "config": {
-        "description": "get, set, delete, and clear persistent configuration data"
+        "description": "list, get, set, delete, and edit persistent configuration data"
       }
     }
   },
   "main": "src/index.js",
   "repository": "adobe/aio-cli-plugin-config",
   "scripts": {
-    "eslint": "eslint src",
-    "test": "npm run unit-tests",
-    "posttest": "npm run eslint",
-    "unit-tests": "jest --ci",
+    "eslint": "eslint .",
+    "test": "yarn eslint && yarn run jest",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",
     "version": "oclif-dev readme && git add README.md"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "testPathIgnorePatterns": [
-      "<rootDir>/tests/fixtures/"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/tests/fixtures/"
-    ],
-    "reporters": [
-      "default",
-      "jest-junit"
-    ],
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "./test/jest.setup.js"
-    ]
   }
 }
