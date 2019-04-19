@@ -10,82 +10,71 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Command, flags } = require('@oclif/command')
-const Conf = require('conf')
-const path = require('path')
+const { flags } = require('@oclif/command')
+const BaseCommand = require('../../base-command')
 const fs = require('fs')
-const os = require('os')
+const yaml = require('js-yaml')
+const hjson = require('hjson')
+const { getPipedData } = require('aio-cli-config')
+const { cli } = require('cli-ux')
+const path = require('path')
 
-async function processDataForMimeType (data, mimeType) {
-  switch (mimeType) {
-    case 'application/json':
-      return JSON.parse(data)
-    case 'application/x-pem-file':
-      return data.split(os.EOL)
-    default:
-      return data
-  }
-}
-
-class SetCommand extends Command {
-  async run () {
+class SetCommand extends BaseCommand {
+  async run() {
     const { args, flags } = this.parse(SetCommand)
-    if (!args.key || !args.value) {
-      return Promise.resolve(false)
+
+    let value = args['value|filename']
+    if (value && flags.file) {
+      value = path.resolve(value)
+      try {
+        if (value.match(/.ya?ml$/i)) {
+          flags.yaml = !flags.json
+        } else if (value.match(/.json$/i)) {
+          flags.json = !flags.yaml
+        }
+        value = fs.readFileSync(value, 'utf-8')
+      } catch (e) {
+        this.error(`Cannot read file: ${value}`)
+      }
+    } else if (!value) {
+      value = await getPipedData()
     }
 
-    if (flags.file) {
-      return this.setFromFilePath(args.key, args.value, flags['mime-type'])
-        .catch(error => {
-          this.error(error.message)
-        })
+    if (value == null) {
+      value = await cli.prompt('value', { type: 'normal' })
     }
-
-    return this.set(args.key, args.value)
-  }
-
-  async set (key, value) {
-    const conf = new Conf()
-    conf.set(key, value)
-    return Promise.resolve(true)
-  }
-
-  async setFromFilePath (key, filePath, mimeType = 'text/plain') {
-    if (!filePath) {
-      return Promise.reject(new Error('Can\'t set file path: it is null or undefined.'))
-    }
-
-    const encoding = 'utf-8' // 'base64'
-    const resolvedFilePath = path.resolve(process.cwd(), filePath)
 
     try {
-      if (fs.lstatSync(resolvedFilePath).isDirectory()) {
-        return Promise.reject(new Error('file path cannot be a folder.'))
+      if (flags.json) {
+        value = hjson.parse(value)
+      } else if (flags.yaml) {
+        value = yaml.safeLoad(value)
       }
-
-      let data = fs.readFileSync(resolvedFilePath, encoding)
-      data = await processDataForMimeType(data, mimeType)
-
-      const conf = new Conf()
-      conf.set(key, data)
-    } catch (error) {
-      return Promise.reject(new Error(error.message))
+    } catch (e) {
+      this.error(`Cannot parse ${flags.json ? 'json' : 'yaml'}`)
     }
 
-    return Promise.resolve(true)
+    this.cliConfig.set(args.key, value, !!flags.local)
   }
 }
 
-SetCommand.description = 'sets a persistent configuration value'
+SetCommand.description = 'sets a persistent config value'
 
-SetCommand.args = [
-  { name: 'key' },
-  { name: 'value' }
-]
+SetCommand.usage = [
+  'config set key \'a value\'       # set key to \'a value\'',
+  'config set key -f value.json      # set key to the json found in the file value.json',
+  'config set -j key < value.json # set key to the json found in the file value.json' ]
 
 SetCommand.flags = {
-  file: flags.boolean({ char: 'f', description: 'the value is a path to a file to read the config value from' }),
-  'mime-type': flags.string({ char: 't', description: 'the mime-type of the file path with --file/-f (defaults to plain text, available: application/json)' })
+  json: flags.boolean({ char: 'j', description: 'value is json' }),
+  yaml: flags.boolean({ char: 'y', description: 'value is yaml' }),
+  file: flags.boolean({ char: 'f', description: 'value is a path to a file' }),
+  ...BaseCommand.flags
 }
+
+SetCommand.args = [
+  { name: 'key', required: true },
+  { name: 'value|filename', required: false }
+]
 
 module.exports = SetCommand

@@ -10,30 +10,34 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Command } = require('@oclif/command')
-const Conf = require('conf')
+const { flags } = require('@oclif/command')
+const BaseCommand = require('../../base-command')
 
-class GetCommand extends Command {
-  async run () {
-    const { args } = this.parse(GetCommand)
+class GetCommand extends BaseCommand {
+  async run() {
+    const { args, flags } = this.parse(GetCommand)
 
-    let retVal = await this.get(args.key)
-    if (retVal) {
-      this.log(retVal)
-    }
-    return retVal
-  }
+    let source
+    if (flags.local) source = 'local'
+    else if (flags.global) source = 'global'
+    else if (flags.env) source = 'env'
 
-  async get (key) {
-    const conf = new Conf()
-    return (key) ? conf.get(key) : conf.store
+    let vars = this.cliConfig.get(args.key, source)
+
+    if (vars == null || Object.keys(vars).length === 0) return
+
+    this.printObject(vars)
   }
 }
 
 GetCommand.description = 'gets a persistent config value'
+GetCommand.flags = {
+  env: flags.boolean({ char: 'e', description: 'environment variables' }),
+  ...BaseCommand.flags
+}
 
 GetCommand.args = [
-  { name: 'key' }
+  { name: 'key', required: true }
 ]
 
 module.exports = GetCommand

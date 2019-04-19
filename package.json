@@ -1,14 +1,14 @@
 {
   "name": "@adobe/aio-cli-plugin-config",
   "description": "Config Plugin for the Adobe I/O CLI",
-  "version": "1.0.7",
+  "version": "2.0.0",
   "author": "Adobe Systems Inc.",
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
     "@oclif/command": "^1",
-    "@oclif/config": "^1",
-    "@oclif/errors": "^1.1.2",
-    "conf": "^2.1.0"
+    "aio-cli-config": "../aio-cli-config/",
+    "hjson": "^3.1.2",
+    "js-yaml": "^3.13.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.21.2",
@@ -44,6 +44,9 @@
     "devPlugins": [
       "@oclif/plugin-help"
     ],
+    "hooks": {
+      "init": "./src/hooks.js"
+    },
     "topics": {
       "config": {
         "description": "list, get, set, delete, and edit persistent configuration data"

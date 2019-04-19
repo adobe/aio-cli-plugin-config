@@ -10,29 +10,24 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const child_process = require('child_process')
 const BaseCommand = require('../../base-command')
-const { cli } = require('cli-ux')
 
-class ClearCommand extends BaseCommand {
+class EditCommand extends BaseCommand {
   async run() {
-    const { flags } = this.parse(ClearCommand)
+    let { flags } = this.parse(EditCommand)
 
-    if (!flags.force) {
-      const confirm = await cli.prompt('are you sure? [yN]', { type: 'normal' })
-      if (!confirm[0] || confirm[0].toLowerCase() !== 'y') {
-        return
-      }
-    }
+    let file = (flags.local) ? this.cliConfig.local.file : this.cliConfig.global.file
 
-    this.cliConfig.set(null, null, !!flags.local)
+    let cmd = (process.platform === 'win32') ? `${process.env['EDITOR'] || 'notepad'}` : `${process.env['EDITOR'] || 'vi'}`
+    child_process.spawn(cmd, [ file ], {
+      stdio: 'inherit',
+      detached: true
+    })
   }
 }
 
-ClearCommand.description = 'clears all persistent config values'
-ClearCommand.flags = {
-  ...BaseCommand.flags,
-  force: flags.boolean({ char: 'f', description: 'do not prompt for confirmation' })
-}
+EditCommand.description = 'edit config file'
+EditCommand.flags = BaseCommand.flags
 
-module.exports = ClearCommand
+module.exports = EditCommand
