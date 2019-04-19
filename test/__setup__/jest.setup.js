@@ -1,6 +1,6 @@
 const { stdout } = require('stdout-stderr')
 
-jest.setTimeout(30000)
+process.on('unhandledRejection', console.error)
 
 // trap console log
 beforeEach(() => { stdout.start() })

@@ -10,31 +10,29 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Command } = require('@oclif/command')
-const Conf = require('conf')
+const { flags } = require('@oclif/command')
+const BaseCommand = require('../../base-command')
+const { cli } = require('cli-ux')
 
-class ClearCommand extends Command {
-  async run () {
-    const { args } = this.parse(ClearCommand)
-    return this.clear(args.key)
-  }
+class ClearCommand extends BaseCommand {
+  async run() {
+    const { flags } = this.parse(ClearCommand)
 
-  async clear (key) {
-    const conf = new Conf()
-    if (key) {
-      conf.delete(key)
-    } else {
-      conf.clear()
+    if (!flags.force) {
+      const confirm = await cli.prompt('are you sure? [yN]', { type: 'normal' })
+      if (!confirm[0] || confirm[0].toLowerCase() !== 'y') {
+        return
+      }
     }
 
-    return true
+    this.cliConfig.set(null, null, !!flags.local)
   }
 }
 
-ClearCommand.args = [
-  { name: 'key' }
-]
-
-ClearCommand.description = 'clears all persistent config values, or for a specific key'
+ClearCommand.description = 'clears all persistent config values'
+ClearCommand.flags = {
+  ...BaseCommand.flags,
+  force: flags.boolean({ char: 'f', description: 'do not prompt for confirmation' })
+}
 
 module.exports = ClearCommand

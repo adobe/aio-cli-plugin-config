@@ -10,15 +10,17 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const ClearCommand = require('../../../src/commands/config/clear.js')
+const hooks = require('../../src/hooks.js')
+const { dotenv } = require('@adobe/aio-cli-config')
 
-// auto-mocked in __mocks__ folder
-jest.mock('conf')
+describe('hooks', () => {
+  test('should export a function', () => {
+    expect(typeof hooks).toBe('function')
+  })
 
-test('clear', async () => {
-  return expect(ClearCommand.run([])).resolves.toBeTruthy()
-})
-
-test('clear a key', async () => {
-  return expect(ClearCommand.run(['mykey'])).resolves.toBeTruthy()
+  test('should call dotenv with the debug function', () => {
+    return hooks().then(() => {
+      expect(dotenv).toHaveBeenCalledWith()
+    })
+  })
 })
