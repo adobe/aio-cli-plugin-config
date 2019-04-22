@@ -66,7 +66,7 @@ OPTIONS
   --verbose     show all config values
 
 ALIASES
-  $ ./bin/run ls
+  $ ./bin/run config:ls
 
 EXAMPLES
   $ aio config:list
@@ -159,7 +159,7 @@ OPTIONS
   --verbose     show all config values
 
 ALIASES
-  $ ./bin/run ls
+  $ ./bin/run config:ls
 ```
 
 _See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/list.js)_
@@ -171,15 +171,16 @@ sets a persistent config value
 ```
 USAGE
   $ ./bin/run config set key 'a value'       # set key to 'a value'
-  $ ./bin/run config set key -f value.json      # set key to the json found in the file value.json
+  $ ./bin/run config set key -f value.json   # set key to the json found in the file value.json
   $ ./bin/run config set -j key < value.json # set key to the json found in the file value.json
 
 OPTIONS
-  -f, --file    value is a path to a file
-  -g, --global  global config
-  -j, --json    value is json
-  -l, --local   local config
-  -y, --yaml    value is yaml
+  -f, --file         value is a path to a file
+  -g, --global       global config
+  -i, --interactive  prompt for value
+  -j, --json         value is json
+  -l, --local        local config
+  -y, --yaml         value is yaml
 ```
 
 _See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/set.js)_
