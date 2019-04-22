@@ -14,9 +14,9 @@ const TheCommand = require('../../../src/commands/config/delete.js')
 
 let mockSet = jest.fn(() => true)
 
-jest.mock('aio-cli-config/lib/Config', () => {
+jest.mock('@adobe/aio-cli-config/lib/Config', () => {
   return jest.fn().mockImplementation(() => {
-    return { set: mockSet }
+    return { set: mockSet, reload: () => true }
   })
 })
 

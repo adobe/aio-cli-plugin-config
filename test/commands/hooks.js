@@ -11,8 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const hooks = require('../../src/hooks.js')
-
-const { dotenv } = require('aio-cli-config')
+const { dotenv } = require('@adobe/aio-cli-config')
 
 describe('hooks', () => {
   test('should export a function', () => {
@@ -20,8 +19,8 @@ describe('hooks', () => {
   })
 
   test('should call dotenv with the debug function', () => {
-    let debug = () => true
-    hooks.apply({ debug })
-    expect(dotenv).toHaveBeenCalledWith(debug)
+    return hooks().then(() => {
+      expect(dotenv).toHaveBeenCalledWith()
+    })
   })
 })

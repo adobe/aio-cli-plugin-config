@@ -5,7 +5,7 @@
   "author": "Adobe Systems Inc.",
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
-    "@adobe/aio-cli-config": "^1.0.0-rc1",
+    "@adobe/aio-cli-config": "^1.0.0",
     "@oclif/command": "^1",
     "conf": "^4.0.1",
     "hjson": "^3.1.2",

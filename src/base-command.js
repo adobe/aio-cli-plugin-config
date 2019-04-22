@@ -11,12 +11,15 @@ governing permissions and limitations under the License.
 */
 
 const { Command, flags } = require('@oclif/command')
-const Config = require('aio-cli-config/lib/Config')
+const Config = require('@adobe/aio-cli-config/lib/Config')
 const hjson = require('hjson')
 
 class BaseCommand extends Command {
   get cliConfig() {
-    if (!this._config) this._config = new Config(this.debug)
+    if (!this._config) {
+      this._config = new Config()
+      this._config.reload()
+    }
     return this._config
   }
 
@@ -25,7 +28,6 @@ class BaseCommand extends Command {
       if (typeof obj !== 'object') {
         this.log(obj)
       } else if (Object.keys(obj).length !== 0) {
-        // this.log(yaml.safeDump(obj, { sortKeys: true, lineWidth: 256, noCompatMode: true }).trim())
         this.log(hjson.stringify(obj, {
           condense: true,
           emitRootBraces: false,

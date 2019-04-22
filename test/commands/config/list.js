@@ -14,13 +14,14 @@ const { stdout } = require('stdout-stderr')
 const TheCommand = require('../../../src/commands/config/list.js')
 const fs = require('fs')
 
-jest.mock('aio-cli-config/lib/Config', () => {
+jest.mock('@adobe/aio-cli-config/lib/Config', () => {
   return jest.fn().mockImplementation(() => {
     return {
       values: { a: 1 },
       local: { values: {} },
       global: { values: { a: 3 } },
-      envs: { a: 4 }
+      envs: { a: 4 },
+      reload: () => true
     }
   })
 })

@@ -14,9 +14,9 @@ const { stdout } = require('stdout-stderr')
 const TheCommand = require('../../../src/commands/config/get.js')
 
 let mockGet
-jest.mock('aio-cli-config/lib/Config', () => {
+jest.mock('@adobe/aio-cli-config/lib/Config', () => {
   return jest.fn().mockImplementation(() => {
-    return { get: mockGet }
+    return { get: mockGet, reload: () => true }
   })
 })
 

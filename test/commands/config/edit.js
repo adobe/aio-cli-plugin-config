@@ -12,9 +12,9 @@ governing permissions and limitations under the License.
 
 const TheCommand = require('../../../src/commands/config/edit.js')
 
-jest.mock('aio-cli-config/lib/Config', () => {
+jest.mock('@adobe/aio-cli-config/lib/Config', () => {
   return jest.fn().mockImplementation(() => {
-    return { global: { file: 'global' }, local: { file: 'local' } }
+    return { global: { file: 'global' }, local: { file: 'local' }, reload: () => true }
   })
 })
 

@@ -13,7 +13,7 @@ governing permissions and limitations under the License.
 const { Command } = require('@oclif/command')
 const TheCommand = require('../../src/base-command')
 const { stdout } = require('stdout-stderr')
-const Config = require('aio-cli-config/lib/Config')
+const Config = require('@adobe/aio-cli-config/lib/Config')
 const hjson = require('hjson')
 
 describe('base-command', () => {
