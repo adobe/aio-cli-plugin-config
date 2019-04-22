@@ -45,7 +45,7 @@ class ListCommand extends BaseCommand {
 }
 
 ListCommand.description = 'lists all persistent config values'
-ListCommand.aliases = [ 'ls' ]
+ListCommand.aliases = [ 'config:ls' ]
 
 ListCommand.flags = {
   env: flags.boolean({ char: 'e', description: 'environment variables' }),
