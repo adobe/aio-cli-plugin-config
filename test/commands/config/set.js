@@ -23,9 +23,7 @@ jest.mock('@adobe/aio-cli-config/lib/Config', () => {
 jest.mock('cli-ux')
 const { cli } = require('cli-ux')
 
-config.getPipedData.mockResolvedValue('a file')
-
-describe('get', () => {
+describe('set', () => {
   beforeEach(() => {
     mockSet = jest.fn(() => { return { a: 12 } })
   })
@@ -35,7 +33,7 @@ describe('get', () => {
   })
 
   test('flags', () => {
-    expect(Object.keys(TheCommand.flags)).toEqual(['json', 'yaml', 'file', 'local', 'global'])
+    expect(Object.keys(TheCommand.flags)).toEqual(['json', 'yaml', 'file', 'interactive', 'local', 'global'])
   })
 
   test('default', () => {
@@ -56,10 +54,24 @@ describe('get', () => {
     })
   })
 
+  test('no value', (done) => {
+    return TheCommand.run(['a-key']).then(done.fail).catch((a) => {
+      expect(a.message).toEqual('Missing value')
+      done()
+    })
+  })
+
   test('get piped data', () => {
+    config.getPipedData.mockResolvedValue('a file')
     return TheCommand.run(['-g', 'a-key']).then(() => {
       expect(config.getPipedData).toHaveBeenCalledWith()
       expect(mockSet).toHaveBeenCalledWith('a-key', 'a file', false)
+    })
+  })
+
+  test('parse key=value', () => {
+    return TheCommand.run(['a-key=value']).then(() => {
+      expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
     })
   })
 
@@ -113,6 +125,13 @@ describe('get', () => {
     })
   })
 
+  test('file but no value', (done) => {
+    return TheCommand.run(['a-key', '-f']).then(done.fail).catch((a) => {
+      expect(a.message).toEqual('Missing filename')
+      done()
+    })
+  })
+
   test('file but not exists', (done) => {
     return TheCommand.run(['a-key', '-f', '/doesnotexist']).then(done.fail).catch((a) => {
       expect(a.message).toEqual('Cannot read file: /doesnotexist')
@@ -123,7 +142,7 @@ describe('get', () => {
   test('prompt for value', () => {
     config.getPipedData.mockResolvedValue(null)
     cli.prompt = jest.fn(() => 'a value')
-    return TheCommand.run(['a-key']).then(() => {
+    return TheCommand.run(['a-key', '-i']).then(() => {
       expect(mockSet).toHaveBeenCalledWith('a-key', 'a value', false)
     })
   })

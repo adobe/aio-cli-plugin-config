@@ -5,9 +5,9 @@
   "author": "Adobe Systems Inc.",
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
-    "@adobe/aio-cli-config": "^1.0.0",
+    "@adobe/aio-cli-config": "^1.0.1",
     "@oclif/command": "^1",
-    "conf": "^4.0.1",
+    "conf": "^4.0.2",
     "hjson": "^3.1.2",
     "js-yaml": "^3.13.0"
   },
@@ -63,7 +63,7 @@
   "scripts": {
     "eslint": "eslint src",
     "test": "npm run unit-tests",
-    "posttest": "npm run eslint",
+    "pretest": "npm run eslint",
     "unit-tests": "jest --ci",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",

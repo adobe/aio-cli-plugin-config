@@ -24,9 +24,12 @@ class SetCommand extends BaseCommand {
     const { args, flags } = this.parse(SetCommand)
 
     let value = args['value|filename']
-    if (value && flags.file) {
-      value = path.resolve(value)
+    if (flags.file) {
+      if (!value) {
+        this.error(`Missing filename`)
+      }
       try {
+        value = path.resolve(value)
         if (value.match(/.ya?ml$/i)) {
           flags.yaml = !flags.json
         } else if (value.match(/.json$/i)) {
@@ -36,12 +39,16 @@ class SetCommand extends BaseCommand {
       } catch (e) {
         this.error(`Cannot read file: ${value}`)
       }
-    } else if (!value) {
-      value = await getPipedData()
-    }
-
-    if (value == null) {
+    } else if (flags.interactive) {
       value = await cli.prompt('value', { type: 'normal' })
+    } else if (value == null) {
+      if (args.key.indexOf('=') > 0) {
+        let parts = args.key.split('=')
+        args.key = parts.shift()
+        value = parts.join('=')
+      } else {
+        value = await getPipedData()
+      }
     }
 
     try {
@@ -54,6 +61,10 @@ class SetCommand extends BaseCommand {
       this.error(`Cannot parse ${flags.json ? 'json' : 'yaml'}`)
     }
 
+    if (!value) {
+      this.error(`Missing value`)
+    }
+
     this.cliConfig.set(args.key, value, !!flags.local)
   }
 }
@@ -62,13 +73,14 @@ SetCommand.description = 'sets a persistent config value'
 
 SetCommand.usage = [
   'config set key \'a value\'       # set key to \'a value\'',
-  'config set key -f value.json      # set key to the json found in the file value.json',
+  'config set key -f value.json   # set key to the json found in the file value.json',
   'config set -j key < value.json # set key to the json found in the file value.json' ]
 
 SetCommand.flags = {
   json: flags.boolean({ char: 'j', description: 'value is json' }),
   yaml: flags.boolean({ char: 'y', description: 'value is yaml' }),
-  file: flags.boolean({ char: 'f', description: 'value is a path to a file' }),
+  file: flags.boolean({ char: 'f', description: 'value is a path to a file', exclusive: ['interactive'] }),
+  interactive: flags.boolean({ char: 'i', description: 'prompt for value', exclusive: ['file'] }),
   ...BaseCommand.flags
 }
 

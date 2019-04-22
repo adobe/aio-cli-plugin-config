@@ -30,7 +30,7 @@ class BaseCommand extends Command {
       } else if (Object.keys(obj).length !== 0) {
         this.log(hjson.stringify(obj, {
           condense: true,
-          emitRootBraces: false,
+          emitRootBraces: true,
           separator: true,
           bracesSameLine: true,
           multiline: 'off',
