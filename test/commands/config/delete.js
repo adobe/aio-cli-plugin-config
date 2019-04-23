@@ -11,18 +11,11 @@ governing permissions and limitations under the License.
 */
 
 const TheCommand = require('../../../src/commands/config/delete.js')
-
-let mockSet = jest.fn(() => true)
-
-jest.mock('@adobe/aio-cli-config/lib/Config', () => {
-  return jest.fn().mockImplementation(() => {
-    return { set: mockSet, reload: () => true }
-  })
-})
+const Config = require('@adobe/aio-cli-config/lib/Config')
 
 describe('delete', () => {
   afterEach(() => {
-    mockSet.mockReset()
+    Config.mockSet.mockReset()
   })
 
   test('flags', () => {
@@ -31,21 +24,21 @@ describe('delete', () => {
 
   test('with delete key', () => {
     return TheCommand.run(['a-key']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', null, false)
+      expect(Config.mockSet).toHaveBeenCalledWith('a-key', null, false)
     })
   })
 
   test('with local delete key', () => {
     return TheCommand.run(['-l', 'a-key']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', null, true)
+      expect(Config.mockSet).toHaveBeenCalledWith('a-key', null, true)
     })
   })
 
   test('with multiple delete keys', () => {
     return TheCommand.run(['a-key1', 'a-key2', 'a-key3']).then(() => {
-      expect(mockSet).toHaveBeenNthCalledWith(1, 'a-key1', null, false)
-      expect(mockSet).toHaveBeenNthCalledWith(2, 'a-key2', null, false)
-      expect(mockSet).toHaveBeenNthCalledWith(3, 'a-key3', null, false)
+      expect(Config.mockSet).toHaveBeenNthCalledWith(1, 'a-key1', null, false)
+      expect(Config.mockSet).toHaveBeenNthCalledWith(2, 'a-key2', null, false)
+      expect(Config.mockSet).toHaveBeenNthCalledWith(3, 'a-key3', null, false)
     })
   })
 })

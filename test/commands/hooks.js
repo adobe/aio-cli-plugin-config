@@ -10,17 +10,70 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const hooks = require('../../src/hooks.js')
-const { dotenv } = require('@adobe/aio-cli-config')
+const Hooks = require('../../src/hooks.js')
+const hooks = Hooks.bind({ debug: () => true })
+const conf = require('@adobe/aio-cli-config')
+
+let mockGet = jest.fn()
+let mockClear = jest.fn()
+let mockSet = jest.fn()
+jest.mock('conf', () => {
+  return jest.fn().mockImplementation(() => {
+    return { get: mockGet, clear: mockClear, set: mockSet }
+  })
+})
+
+afterEach(() => {
+  jest.clearAllMocks()
+})
 
 describe('hooks', () => {
   test('should export a function', () => {
     expect(typeof hooks).toBe('function')
   })
 
-  test('should call dotenv with the debug function', () => {
+  test('should call dotenv', () => {
     return hooks().then(() => {
-      expect(dotenv).toHaveBeenCalledWith()
+      expect(conf.dotenv).toHaveBeenCalled()
+    })
+  })
+
+  test('should not set if no conf', () => {
+    return hooks().then(() => {
+      expect(mockGet).toHaveBeenCalledWith('jwt-auth')
+      expect(conf.set).not.toHaveBeenCalled()
+      expect(mockSet).not.toHaveBeenCalled()
+      expect(mockClear).toHaveBeenCalled()
+    })
+  })
+
+  test('should upgrade if it is set with object', () => {
+    mockGet.mockImplementation(() => { return { foo: 'bar' } })
+    return hooks().then(() => {
+      expect(mockGet).toHaveBeenCalledWith('jwt-auth')
+      expect(conf.set).toHaveBeenCalledWith('jwt-auth', { 'foo': 'bar' })
+      expect(mockSet).toHaveBeenCalledWith('jwt-auth-backup', { 'foo': 'bar' })
+      expect(mockClear).toHaveBeenCalled()
+    })
+  })
+
+  test('should upgrade with json', () => {
+    mockGet.mockImplementation(() => { return '{ "a": 12 }' })
+    return hooks().then(() => {
+      expect(mockGet).toHaveBeenCalledWith('jwt-auth')
+      expect(conf.set).toHaveBeenCalledWith('jwt-auth', { a: 12 })
+      expect(mockSet).toHaveBeenCalledWith('jwt-auth-backup', '{ "a": 12 }')
+      expect(mockClear).toHaveBeenCalled()
+    })
+  })
+
+  test('should not fail if bad json', () => {
+    mockGet.mockImplementation(() => { return 'badjson}{' })
+    return hooks().then(() => {
+      expect(mockGet).toHaveBeenCalledWith('jwt-auth')
+      expect(conf.set).not.toHaveBeenCalled()
+      expect(mockSet).toHaveBeenCalledWith('jwt-auth-backup', 'badjson}{')
+      expect(mockClear).toHaveBeenCalled()
     })
   })
 })

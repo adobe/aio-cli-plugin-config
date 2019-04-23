@@ -12,19 +12,9 @@ governing permissions and limitations under the License.
 
 const { stdout } = require('stdout-stderr')
 const TheCommand = require('../../../src/commands/config/get.js')
-
-let mockGet
-jest.mock('@adobe/aio-cli-config/lib/Config', () => {
-  return jest.fn().mockImplementation(() => {
-    return { get: mockGet, reload: () => true }
-  })
-})
+const { mockGet } = require('@adobe/aio-cli-config/lib/Config')
 
 describe('get', () => {
-  beforeEach(() => {
-    mockGet = jest.fn(() => { return { a: 12 } })
-  })
-
   afterEach(() => {
     mockGet.mockClear()
   })
@@ -58,7 +48,7 @@ describe('get', () => {
   })
 
   test('empty key', () => {
-    mockGet = jest.fn(() => { return null })
+    mockGet.mockImplementation(() => { return null })
     return TheCommand.run(['a-key']).then(() => {
       expect(mockGet).toHaveBeenCalledWith('a-key', undefined)
       expect(stdout.output).toEqual('')
@@ -66,7 +56,7 @@ describe('get', () => {
   })
 
   test('empty object', () => {
-    mockGet = jest.fn(() => { return {} })
+    mockGet.mockImplementation(() => { return {} })
     return TheCommand.run(['a-key']).then(() => {
       expect(mockGet).toHaveBeenCalledWith('a-key', undefined)
       expect(stdout.output).toEqual('')
@@ -74,7 +64,7 @@ describe('get', () => {
   })
 
   test('should print object', () => {
-    mockGet = jest.fn(() => { return { a: 12 } })
+    mockGet.mockImplementation(() => { return { a: 12 } })
     return TheCommand.run(['a-key']).then(() => {
       expect(mockGet).toHaveBeenCalledWith('a-key', undefined)
       expect(stdout.output).toMatch(/a: 12/)
