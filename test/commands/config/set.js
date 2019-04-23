@@ -12,20 +12,14 @@ governing permissions and limitations under the License.
 
 const TheCommand = require('../../../src/commands/config/set.js')
 const config = require('@adobe/aio-cli-config')
-
-let mockSet
-jest.mock('@adobe/aio-cli-config/lib/Config', () => {
-  return jest.fn().mockImplementation(() => {
-    return { set: mockSet, reload: () => true }
-  })
-})
+const { mockSet } = require('@adobe/aio-cli-config/lib/Config')
 
 jest.mock('cli-ux')
 const { cli } = require('cli-ux')
 
 describe('set', () => {
   beforeEach(() => {
-    mockSet = jest.fn(() => { return { a: 12 } })
+    mockSet.mockImplementation(() => { return { a: 12 } })
   })
 
   afterEach(() => {

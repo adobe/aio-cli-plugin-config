@@ -13,7 +13,6 @@ governing permissions and limitations under the License.
 const { Command } = require('@oclif/command')
 const TheCommand = require('../../src/base-command')
 const { stdout } = require('stdout-stderr')
-const Config = require('@adobe/aio-cli-config/lib/Config')
 const hjson = require('hjson')
 
 describe('base-command', () => {
@@ -60,10 +59,6 @@ describe('base-command', () => {
     })
 
     describe('cliConfig', () => {
-      test('exists', () => {
-        expect(command.cliConfig).toBeInstanceOf(Config)
-      })
-
       test('only gets it once', () => {
         let config1 = command.cliConfig
         let config2 = command.cliConfig

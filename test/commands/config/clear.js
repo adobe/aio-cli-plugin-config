@@ -11,14 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const TheCommand = require('../../../src/commands/config/clear.js')
-
-let mockSet = jest.fn(() => true)
-
-jest.mock('@adobe/aio-cli-config/lib/Config', () => {
-  return jest.fn().mockImplementation(() => {
-    return { set: mockSet, reload: () => true }
-  })
-})
+const { mockSet } = require('@adobe/aio-cli-config/lib/Config')
 
 jest.mock('cli-ux')
 const { cli } = require('cli-ux')
