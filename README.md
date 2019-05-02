@@ -18,7 +18,7 @@ governing permissions and limitations under the License.
 [![Codecov Coverage](https://img.shields.io/codecov/c/github/adobe/aio-cli-plugin-config/master.svg?style=flat-square)](https://codecov.io/gh/adobe/aio-cli-plugin-config/)
 
 
-aio-cli-plugin-config
+aio-cli-plugin-config 
 =====================
 
 Config Plugin for the Adobe I/O CLI
