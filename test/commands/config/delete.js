@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const TheCommand = require('../../../src/commands/config/delete.js')
-const Config = require('@adobe/aio-cli-config/lib/Config')
+const Config = require('@adobe/aio-cli-config/src/Config')
 
 describe('delete', () => {
   afterEach(() => {

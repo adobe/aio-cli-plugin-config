@@ -31,30 +31,55 @@ describe('get', () => {
     expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global', 'json', 'yaml'])
   })
 
-  test('default', () => {
+  test('default - darwin', () => {
+    Object.defineProperty(process, 'platform', {
+      value: 'darwin'
+    })
     return TheCommand.run([]).then(() => {
       expect(child_process.spawn).toHaveBeenCalledWith('vi', ['global'], { 'detached': true, 'stdio': 'inherit' })
     })
   })
 
+  test('default - linux', () => {
+    Object.defineProperty(process, 'platform', {
+      value: 'linux'
+    })
+    return TheCommand.run([]).then(() => {
+      expect(child_process.spawn).toHaveBeenCalledWith('vi', ['global'], { 'detached': true, 'stdio': 'inherit' })
+    })
+  })
+
+  test('default - win32', () => {
+    Object.defineProperty(process, 'platform', {
+      value: 'win32'
+    })
+    return TheCommand.run([]).then(() => {
+      expect(child_process.spawn).toHaveBeenCalledWith('notepad', ['global'], { 'detached': true, 'stdio': 'inherit' })
+    })
+  })
+
   test('local', () => {
+    Object.defineProperty(process, 'platform', {
+      value: 'darwin'
+    })
     return TheCommand.run(['-l']).then(() => {
       expect(child_process.spawn).toHaveBeenCalledWith('vi', ['local'], { 'detached': true, 'stdio': 'inherit' })
     })
   })
 
   test('global', () => {
+    Object.defineProperty(process, 'platform', {
+      value: 'darwin'
+    })
     return TheCommand.run(['-g']).then(() => {
       expect(child_process.spawn).toHaveBeenCalledWith('vi', ['global'], { 'detached': true, 'stdio': 'inherit' })
     })
   })
 
-  test('windows', () => {
-    Object.defineProperty(process, 'platform', {
-      value: 'win32'
-    })
-    return TheCommand.run(['-g']).then(() => {
-      expect(child_process.spawn).toHaveBeenCalledWith('notepad', ['global'], { 'detached': true, 'stdio': 'inherit' })
+  test('default - env', () => {
+    process.env['EDITOR'] = 'foobar'
+    return TheCommand.run([]).then(() => {
+      expect(child_process.spawn).toHaveBeenCalledWith('foobar', ['global'], { 'detached': true, 'stdio': 'inherit' })
     })
   })
 })

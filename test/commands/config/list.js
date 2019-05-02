@@ -14,7 +14,7 @@ const { stdout } = require('stdout-stderr')
 const TheCommand = require('../../../src/commands/config/list.js')
 const fs = require('fs')
 
-jest.mock('@adobe/aio-cli-config/lib/Config', () => {
+jest.mock('@adobe/aio-cli-config/src/Config', () => {
   return jest.fn().mockImplementation(() => {
     return {
       values: { a: 1 },
@@ -57,7 +57,7 @@ describe('list', () => {
 
   test('verbose key', () => {
     return TheCommand.run(['--verbose']).then(() => {
-      expect(stdout.output).toEqual(fs.readFileSync('./test/__fixtures__/verbose.txt', 'utf-8'))
+      expect(stdout.output.replace(/\r\n|\r/g, '\n')).toEqual(fs.readFileSync('./test/__fixtures__/verbose.txt', 'utf-8'))
     })
   })
 

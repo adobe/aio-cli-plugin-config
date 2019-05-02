@@ -12,7 +12,8 @@ governing permissions and limitations under the License.
 
 const TheCommand = require('../../../src/commands/config/set.js')
 const config = require('@adobe/aio-cli-config')
-const { mockSet } = require('@adobe/aio-cli-config/lib/Config')
+const path = require('path')
+const { mockSet } = require('@adobe/aio-cli-config/src/Config')
 
 jest.mock('cli-ux')
 const { cli } = require('cli-ux')
@@ -128,7 +129,7 @@ describe('set', () => {
 
   test('file but not exists', (done) => {
     return TheCommand.run(['a-key', '-f', '/doesnotexist']).then(done.fail).catch((a) => {
-      expect(a.message).toEqual('Cannot read file: /doesnotexist')
+      expect(a.message).toEqual(`Cannot read file: ${path.resolve('/doesnotexist')}`)
       done()
     })
   })

@@ -34,7 +34,7 @@ $ npm install -g @adobe/aio-cli-plugin-config
 $ ./bin/run COMMAND
 running command...
 $ ./bin/run (-v|--version|version)
-@adobe/aio-cli-plugin-config/2.0.0-rc1 darwin-x64 node-v8.10.0
+@adobe/aio-cli-plugin-config/1.0.7 darwin-x64 node-v8.15.1
 $ ./bin/run --help [COMMAND]
 USAGE
   $ ./bin/run COMMAND
@@ -62,7 +62,9 @@ USAGE
 OPTIONS
   -e, --env     environment variables
   -g, --global  global config
+  -j, --json    output in json
   -l, --local   local config
+  -y, --yaml    output in yaml
   --verbose     show all config values
 
 ALIASES
@@ -76,7 +78,7 @@ EXAMPLES
   $ aio config:clear
 ```
 
-_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/index.js)_
+_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/index.js)_
 
 ## `./bin/run config:clear`
 
@@ -92,7 +94,7 @@ OPTIONS
   -l, --local   local config
 ```
 
-_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/clear.js)_
+_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/clear.js)_
 
 ## `./bin/run config:delete KEYS...`
 
@@ -111,7 +113,7 @@ ALIASES
   $ ./bin/run config:rm
 ```
 
-_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/delete.js)_
+_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/delete.js)_
 
 ## `./bin/run config:edit`
 
@@ -126,7 +128,7 @@ OPTIONS
   -l, --local   local config
 ```
 
-_See code: [src/commands/config/edit.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/edit.js)_
+_See code: [src/commands/config/edit.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/edit.js)_
 
 ## `./bin/run config:get KEY`
 
@@ -139,10 +141,12 @@ USAGE
 OPTIONS
   -e, --env     environment variables
   -g, --global  global config
+  -j, --json    output in json
   -l, --local   local config
+  -y, --yaml    output in yaml
 ```
 
-_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/get.js)_
+_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/get.js)_
 
 ## `./bin/run config:list`
 
@@ -155,14 +159,16 @@ USAGE
 OPTIONS
   -e, --env     environment variables
   -g, --global  global config
+  -j, --json    output in json
   -l, --local   local config
+  -y, --yaml    output in yaml
   --verbose     show all config values
 
 ALIASES
   $ ./bin/run config:ls
 ```
 
-_See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/list.js)_
+_See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/list.js)_
 
 ## `./bin/run config set key 'a value'       # set key to 'a value'`
 
@@ -183,5 +189,5 @@ OPTIONS
   -y, --yaml         value is yaml
 ```
 
-_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.0.0-rc1/src/commands/config/set.js)_
+_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/set.js)_
 <!-- commandsstop -->
