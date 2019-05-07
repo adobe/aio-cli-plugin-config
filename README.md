@@ -69,7 +69,7 @@ _See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugi
 
 ## `./bin/run config:clear [KEY]`
 
-clears all persistent config values, or for a specific key
+clears all persistent config values, or for a specific key 
 
 ```
 USAGE
