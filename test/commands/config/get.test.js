@@ -16,7 +16,7 @@ jest.mock('conf')
 
 test('no key', async () => {
   let val = await GetCommand.run([])
-  return expect(val).toEqual({ known_key: 'known_value' })
+  return expect(JSON.parse(val)).toEqual({ known_key: 'known_value' })
 })
 
 test('undefined key', async () => {
