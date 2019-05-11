@@ -26,7 +26,7 @@ class GetCommand extends Command {
 
   async get (key) {
     const conf = new Conf()
-    return (key) ? conf.get(key) : conf.store
+    return (key) ? conf.get(key) : JSON.stringify(Object.assign({}, conf.store))
   }
 }
 
