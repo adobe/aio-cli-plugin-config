@@ -22,7 +22,7 @@ describe('clear', () => {
   })
 
   test('flags', () => {
-    expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global', 'force'])
+    expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global', 'json', 'yaml', 'force'])
   })
 
   test('default', () => {

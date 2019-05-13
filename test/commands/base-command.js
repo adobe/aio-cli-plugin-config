@@ -22,7 +22,7 @@ describe('base-command', () => {
   })
 
   test('flags', () => {
-    expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global'])
+    expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global', 'json', 'yaml'])
   })
 
   describe('setter', () => {
@@ -40,6 +40,18 @@ describe('base-command', () => {
       test('returns parsed value 1', () => {
         command.printObject()
         expect(stdout.output).toEqual('')
+      })
+
+      test('yaml', () => {
+        command = new TheCommand(['--yaml'], { })
+        command.printObject({ foo: { bar: true } })
+        expect(stdout.output).toEqual('foo:\n  bar: true\n\n')
+      })
+
+      test('json', () => {
+        command = new TheCommand(['--json'], { })
+        command.printObject({ foo: { bar: true } })
+        expect(stdout.output).toEqual('{"foo":{"bar":true}}\n')
       })
 
       test('returns parsed value 2', () => {

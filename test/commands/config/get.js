@@ -20,7 +20,7 @@ describe('get', () => {
   })
 
   test('flags', () => {
-    expect(Object.keys(TheCommand.flags)).toEqual(['env', 'local', 'global'])
+    expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global', 'json', 'yaml', 'env'])
   })
 
   test('default', () => {

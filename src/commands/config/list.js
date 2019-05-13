@@ -48,9 +48,11 @@ ListCommand.description = 'lists all persistent config values'
 ListCommand.aliases = [ 'config:ls' ]
 
 ListCommand.flags = {
+  ...BaseCommand.flags,
   env: flags.boolean({ char: 'e', description: 'environment variables' }),
-  verbose: flags.boolean({ description: 'show all config values' }),
-  ...BaseCommand.flags
+  verbose: flags.boolean({ description: 'show all config values', exclusive: [ 'yaml', 'json' ] }),
+  json: flags.boolean({ char: 'j', description: 'output in json', exclusive: ['yaml'], hidden: false }),
+  yaml: flags.boolean({ char: 'y', description: 'output in yaml', exclusive: ['json'], hidden: false })
 }
 
 module.exports = ListCommand

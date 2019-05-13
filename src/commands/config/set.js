@@ -77,11 +77,11 @@ SetCommand.usage = [
   'config set -j key < value.json # set key to the json found in the file value.json' ]
 
 SetCommand.flags = {
-  json: flags.boolean({ char: 'j', description: 'value is json' }),
-  yaml: flags.boolean({ char: 'y', description: 'value is yaml' }),
+  ...BaseCommand.flags,
+  json: flags.boolean({ char: 'j', hidden: false, description: 'value is json' }),
+  yaml: flags.boolean({ char: 'y', hidden: false, description: 'value is yaml' }),
   file: flags.boolean({ char: 'f', description: 'value is a path to a file', exclusive: ['interactive'] }),
-  interactive: flags.boolean({ char: 'i', description: 'prompt for value', exclusive: ['file'] }),
-  ...BaseCommand.flags
+  interactive: flags.boolean({ char: 'i', description: 'prompt for value', exclusive: ['file'] })
 }
 
 SetCommand.args = [

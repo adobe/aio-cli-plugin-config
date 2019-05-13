@@ -13,6 +13,7 @@ governing permissions and limitations under the License.
 const { Command, flags } = require('@oclif/command')
 const Config = require('@adobe/aio-cli-config/lib/Config')
 const hjson = require('hjson')
+const yaml = require('js-yaml')
 
 class BaseCommand extends Command {
   get cliConfig() {
@@ -24,25 +25,43 @@ class BaseCommand extends Command {
   }
 
   printObject(obj) {
-    if (obj != null) {
-      if (typeof obj !== 'object') {
-        this.log(obj)
-      } else if (Object.keys(obj).length !== 0) {
-        this.log(hjson.stringify(obj, {
-          condense: true,
-          emitRootBraces: true,
-          separator: true,
-          bracesSameLine: true,
-          multiline: 'off',
-          colors: false }))
+    const { flags } = this.parse(this.constructor)
+
+    let format = 'hjson'
+    if (flags.yaml) format = 'yaml'
+    else if (flags.json) format = 'json'
+
+    const print = (obj) => {
+      if (format === 'json') {
+        this.log(JSON.stringify(obj))
+      } else if (format === 'yaml') {
+        this.log(yaml.safeDump(obj, { sortKeys: true, lineWidth: 1024, noCompatMode: true }))
+      } else {
+        if (typeof obj !== 'object') {
+          this.log(obj)
+        } else if (Object.keys(obj).length !== 0) {
+          this.log(hjson.stringify(obj, {
+            condense: true,
+            emitRootBraces: true,
+            separator: true,
+            bracesSameLine: true,
+            multiline: 'off',
+            colors: false }))
+        }
       }
+    }
+
+    if (obj != null) {
+      print(obj)
     }
   }
 }
 
 BaseCommand.flags = {
   local: flags.boolean({ char: 'l', description: 'local config', exclusive: ['global'] }),
-  global: flags.boolean({ char: 'g', description: 'global config', exclusive: ['local'] })
+  global: flags.boolean({ char: 'g', description: 'global config', exclusive: ['local'] }),
+  json: flags.boolean({ char: 'j', hidden: true, exclusive: ['yaml'] }),
+  yaml: flags.boolean({ char: 'y', hidden: true, exclusive: ['json'] })
 }
 
 module.exports = BaseCommand

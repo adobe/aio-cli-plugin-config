@@ -31,9 +31,12 @@ class GetCommand extends BaseCommand {
 }
 
 GetCommand.description = 'gets a persistent config value'
+
 GetCommand.flags = {
+  ...BaseCommand.flags,
   env: flags.boolean({ char: 'e', description: 'environment variables' }),
-  ...BaseCommand.flags
+  json: flags.boolean({ char: 'j', description: 'output in json', hidden: false, exclusive: ['yaml'] }),
+  yaml: flags.boolean({ char: 'y', description: 'output in yaml', hidden: false, exclusive: ['json'] })
 }
 
 GetCommand.args = [

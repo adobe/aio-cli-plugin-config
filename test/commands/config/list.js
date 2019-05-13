@@ -26,9 +26,9 @@ jest.mock('@adobe/aio-cli-config/lib/Config', () => {
   })
 })
 
-describe('get', () => {
+describe('list', () => {
   test('flags', () => {
-    expect(Object.keys(TheCommand.flags)).toEqual(['env', 'verbose', 'local', 'global'])
+    expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global', 'json', 'yaml', 'env', 'verbose'])
   })
 
   test('default', () => {

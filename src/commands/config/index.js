@@ -24,4 +24,6 @@ ConfigCommand.examples = [
   '$ aio config:clear'
 ]
 
+ConfigCommand.flags = ListCommand.flags
+
 module.exports = ConfigCommand

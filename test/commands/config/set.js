@@ -27,7 +27,7 @@ describe('set', () => {
   })
 
   test('flags', () => {
-    expect(Object.keys(TheCommand.flags)).toEqual(['json', 'yaml', 'file', 'interactive', 'local', 'global'])
+    expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global', 'json', 'yaml', 'file', 'interactive'])
   })
 
   test('default', () => {
