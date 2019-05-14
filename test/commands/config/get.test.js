@@ -16,7 +16,7 @@ jest.mock('conf')
 
 test('no key', async () => {
   let val = await GetCommand.run([])
-  return expect(JSON.parse(val)).toEqual({ known_key: 'known_value' })
+  return expect(val).toEqual({ known_key: 'known_value' })
 })
 
 test('undefined key', async () => {
@@ -27,4 +27,34 @@ test('undefined key', async () => {
 test('defined key', async () => {
   let val = await GetCommand.run(['known_key'])
   return expect(val).toEqual('known_value')
+})
+
+test('no key, -j', async () => {
+  let val = await GetCommand.run(['-j'])
+  return expect(JSON.parse(val)).toEqual({ known_key: 'known_value' })
+})
+
+test('undefined key, -j', async () => {
+  let val = await GetCommand.run(['-j', 'unknown'])
+  return expect(val).toBeUndefined()
+})
+
+test('defined key, -j', async () => {
+  let val = await GetCommand.run(['-j', 'known_key'])
+  return expect(JSON.parse(val)).toEqual('known_value')
+})
+
+test('no key, --json', async () => {
+  let val = await GetCommand.run(['--json'])
+  return expect(JSON.parse(val)).toEqual({ known_key: 'known_value' })
+})
+
+test('undefined key, --json', async () => {
+  let val = await GetCommand.run(['--json', 'unknown'])
+  return expect(val).toBeUndefined()
+})
+
+test('defined key, --json', async () => {
+  let val = await GetCommand.run(['--json', 'known_key'])
+  return expect(JSON.parse(val)).toEqual('known_value')
 })

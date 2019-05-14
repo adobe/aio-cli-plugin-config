@@ -12,9 +12,10 @@ governing permissions and limitations under the License.
 
 const mock = jest.fn().mockImplementation(
   function () { // constructor
-    let _store = {
+    const plainObject = () => Object.create(null);
+    let _store = Object.assign(plainObject(), {
       known_key: 'known_value'
-    }
+    })
 
     // set properties and functions for object
     // this is how you can get the call stats on the mock instance,
