@@ -10,27 +10,20 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Command } = require('@oclif/command')
-const GetCommand = require('./get')
+const ListCommand = require('./list')
 
-class ConfigCommand extends Command {
-  async run () {
-    // when this is run, no params are needed
-    // which is the same as `config:get` (get contents of config)
-    return GetCommand.run([])
-  }
-}
+class ConfigCommand extends ListCommand { }
 
-// this is set in package.json, see https://github.com/oclif/oclif/issues/120
-// if not set it will get the first (alphabetical) topic's help description
-ConfigCommand.description = 'get, set, delete, and clear persistent configuration data'
+ConfigCommand.description = 'list, get, set, delete, and edit persistent configuration data'
 
 ConfigCommand.examples = [
+  '$ aio config:list',
   '$ aio config:get KEY',
   '$ aio config:set KEY VALUE',
   '$ aio config:delete KEY',
-  '$ aio config:del KEY',
   '$ aio config:clear'
 ]
+
+ConfigCommand.flags = ListCommand.flags
 
 module.exports = ConfigCommand

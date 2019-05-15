@@ -1,0 +1,17 @@
+---- Global configuration: undefined
+{
+  a: 3
+}
+
+---- Local configuration: undefined
+
+---- Environmental Variables
+{
+  a: 4
+}
+
+---- Active Configuration
+{
+  a: 1
+}
+

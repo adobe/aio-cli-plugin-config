@@ -10,26 +10,24 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+const child_process = require('child_process')
 const BaseCommand = require('../../base-command')
 
-class DeleteCommand extends BaseCommand {
+class EditCommand extends BaseCommand {
   async run() {
-    const { argv, flags } = this.parse(DeleteCommand)
+    let { flags } = this.parse(EditCommand)
 
-    for (let arg of argv) {
-      this.cliConfig.set(arg, null, !!flags.local)
-    }
+    let file = (flags.local) ? this.cliConfig.local.file : this.cliConfig.global.file
+
+    let cmd = (process.platform === 'win32') ? `${process.env['EDITOR'] || 'notepad'}` : `${process.env['EDITOR'] || 'vi'}`
+    child_process.spawn(cmd, [ file ], {
+      stdio: 'inherit',
+      detached: true
+    })
   }
 }
 
-DeleteCommand.description = 'deletes persistent config values'
+EditCommand.description = 'edit config file'
+EditCommand.flags = BaseCommand.flags
 
-DeleteCommand.args = [
-  { name: 'keys...', required: true }
-]
-
-DeleteCommand.aliases = ['config:del', 'config:rm']
-DeleteCommand.flags = BaseCommand.flags
-DeleteCommand.strict = false
-
-module.exports = DeleteCommand
+module.exports = EditCommand

@@ -5,10 +5,11 @@
   "author": "Adobe Systems Inc.",
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
+    "@adobe/aio-cli-config": "^1.0.7",
     "@oclif/command": "^1",
-    "@oclif/config": "^1",
-    "@oclif/errors": "^1.1.2",
-    "conf": "^4.0.2"
+    "conf": "^4.0.2",
+    "hjson": "^3.1.2",
+    "js-yaml": "^3.13.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.21.2",
@@ -48,6 +49,9 @@
     "devPlugins": [
       "@oclif/plugin-help"
     ],
+    "hooks": {
+      "init": "./src/hooks.js"
+    },
     "topics": {
       "config": {
         "description": "get, set, delete, and clear persistent configuration data"
@@ -59,7 +63,7 @@
   "scripts": {
     "eslint": "eslint src",
     "test": "npm run unit-tests",
-    "posttest": "npm run eslint",
+    "pretest": "npm run eslint",
     "unit-tests": "jest --ci",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",

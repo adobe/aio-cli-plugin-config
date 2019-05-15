@@ -34,7 +34,7 @@ $ npm install -g @adobe/aio-cli-plugin-config
 $ ./bin/run COMMAND
 running command...
 $ ./bin/run (-v|--version|version)
-@adobe/aio-cli-plugin-config/1.0.7 darwin-x64 node-v8.11.4
+@adobe/aio-cli-plugin-config/1.0.7 darwin-x64 node-v8.15.1
 $ ./bin/run --help [COMMAND]
 USAGE
   $ ./bin/run COMMAND
@@ -44,78 +44,149 @@ USAGE
 # Commands
 <!-- commands -->
 * [`./bin/run config`](#binrun-config)
-* [`./bin/run config:clear [KEY]`](#binrun-configclear-key)
-* [`./bin/run config:delete [KEY]`](#binrun-configdelete-key)
-* [`./bin/run config:get [KEY]`](#binrun-configget-key)
-* [`./bin/run config:set [KEY] [VALUE]`](#binrun-configset-key-value)
+* [`./bin/run config:clear`](#binrun-configclear)
+* [`./bin/run config:delete KEYS...`](#binrun-configdelete-keys)
+* [`./bin/run config:edit`](#binrun-configedit)
+* [`./bin/run config:get KEY`](#binrun-configget-key)
+* [`./bin/run config:list`](#binrun-configlist)
+* [`./bin/run config set key 'a value'       # set key to 'a value'`](#binrun-config-set-key-a-value--------set-key-to-a-value)
 
 ## `./bin/run config`
 
-get, set, delete, and clear persistent configuration data
+list, get, set, delete, and edit persistent configuration data
 
 ```
 USAGE
   $ ./bin/run config
 
+OPTIONS
+  -e, --env     environment variables
+  -g, --global  global config
+  -j, --json    output in json
+  -l, --local   local config
+  -y, --yaml    output in yaml
+  --verbose     show all config values
+
+ALIASES
+  $ ./bin/run config:ls
+
 EXAMPLES
+  $ aio config:list
   $ aio config:get KEY
   $ aio config:set KEY VALUE
   $ aio config:delete KEY
-  $ aio config:del KEY
   $ aio config:clear
 ```
 
 _See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/index.js)_
 
-## `./bin/run config:clear [KEY]`
+## `./bin/run config:clear`
 
-clears all persistent config values, or for a specific key
+clears all persistent config values
 
 ```
 USAGE
-  $ ./bin/run config:clear [KEY]
+  $ ./bin/run config:clear
+
+OPTIONS
+  -f, --force   do not prompt for confirmation
+  -g, --global  global config
+  -l, --local   local config
 ```
 
 _See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/clear.js)_
 
-## `./bin/run config:delete [KEY]`
+## `./bin/run config:delete KEYS...`
 
-delete a persistent config value
+deletes persistent config values
 
 ```
 USAGE
-  $ ./bin/run config:delete [KEY]
+  $ ./bin/run config:delete KEYS...
+
+OPTIONS
+  -g, --global  global config
+  -l, --local   local config
 
 ALIASES
   $ ./bin/run config:del
+  $ ./bin/run config:rm
 ```
 
 _See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/delete.js)_
 
-## `./bin/run config:get [KEY]`
+## `./bin/run config:edit`
+
+edit config file
+
+```
+USAGE
+  $ ./bin/run config:edit
+
+OPTIONS
+  -g, --global  global config
+  -l, --local   local config
+```
+
+_See code: [src/commands/config/edit.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/edit.js)_
+
+## `./bin/run config:get KEY`
 
 gets a persistent config value
 
 ```
 USAGE
-  $ ./bin/run config:get [KEY]
+  $ ./bin/run config:get KEY
+
+OPTIONS
+  -e, --env     environment variables
+  -g, --global  global config
+  -j, --json    output in json
+  -l, --local   local config
+  -y, --yaml    output in yaml
 ```
 
 _See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/get.js)_
 
-## `./bin/run config:set [KEY] [VALUE]`
+## `./bin/run config:list`
 
-sets a persistent configuration value
+lists all persistent config values
 
 ```
 USAGE
-  $ ./bin/run config:set [KEY] [VALUE]
+  $ ./bin/run config:list
 
 OPTIONS
-  -f, --file                 the value is a path to a file to read the config value from
+  -e, --env     environment variables
+  -g, --global  global config
+  -j, --json    output in json
+  -l, --local   local config
+  -y, --yaml    output in yaml
+  --verbose     show all config values
 
-  -t, --mime-type=mime-type  the mime-type of the file path with --file/-f (defaults to plain text, available:
-                             application/json)
+ALIASES
+  $ ./bin/run config:ls
+```
+
+_See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/list.js)_
+
+## `./bin/run config set key 'a value'       # set key to 'a value'`
+
+sets a persistent config value
+
+```
+USAGE
+  $ ./bin/run config set key 'a value'       # set key to 'a value'
+  $ ./bin/run config set key -f value.json   # set key to the json found in the file value.json
+  $ ./bin/run config set -j key < value.json # set key to the json found in the file value.json
+
+OPTIONS
+  -f, --file         value is a path to a file
+  -g, --global       global config
+  -i, --interactive  prompt for value
+  -j, --json         value is json
+  -l, --local        local config
+  -y, --yaml         value is yaml
 ```
 
 _See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v1.0.7/src/commands/config/set.js)_
