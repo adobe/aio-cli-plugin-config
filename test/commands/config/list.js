@@ -57,7 +57,9 @@ describe('list', () => {
 
   test('verbose key', () => {
     return TheCommand.run(['--verbose']).then(() => {
-      expect(stdout.output.replace(/\r\n|\r/g, '\n')).toEqual(fs.readFileSync('./test/__fixtures__/verbose.txt', 'utf-8'))
+      expect(stdout.output.replace(/\r\n|\r/g, '\n'))
+        .toEqual(fs.readFileSync('./test/__fixtures__/verbose.txt', 'utf-8')
+        .replace(/\r\n|\r/g, '\n'))
     })
   })
 
