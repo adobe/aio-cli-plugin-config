@@ -22,16 +22,17 @@ const toJson = (item) => {
  */
 const upgrade = () => {
   try {
+    
     const oldConf = new OldConf({ projectName: '@adobe/aio-cli-plugin-config' })
-
-    let data = oldConf.get('jwt-auth')
-    oldConf.delete('jwt-auth')
-
-    if (data == null) return
-
-    oldConf.set('jwt-auth-backup', data)
-    config.set('jwt-auth', toJson(data))
-    debug('config upgraded')
+    let data = oldConf.store
+    delete data['__backup__']
+   
+    if (data != null && Object.keys(data).length > 0) {
+      oldConf.clear()
+      oldConf.set('__backup__', data)
+      config.set(null, toJson(JSON.stringify(data)))
+      debug('config upgraded')
+    }
   } catch (e) {
     debug(`upgrade failed: ${e.message}`)
   }
