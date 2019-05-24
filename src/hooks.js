@@ -7,6 +7,7 @@ const hjson = require('hjson')
  * return parsed json if it's a string else just return the value
  *
  * @param {Object} item
+ * @throws SyntaxError
  */
 const toJson = (item) => {
   if (typeof item === 'string') {
@@ -16,21 +17,20 @@ const toJson = (item) => {
 }
 
 /**
- * Move 'jwt-auth' key to aio-cli-config
+ * Move all keys to aio-cli-config
  *
  * @param {Function} debug
  */
 const upgrade = () => {
   try {
-    
     const oldConf = new OldConf({ projectName: '@adobe/aio-cli-plugin-config' })
     let data = oldConf.store
     delete data['__backup__']
-   
+
     if (data != null && Object.keys(data).length > 0) {
       oldConf.clear()
       oldConf.set('__backup__', data)
-      config.set(null, toJson(JSON.stringify(data)))
+      config.set(null, toJson(data))
       debug('config upgraded')
     }
   } catch (e) {
