@@ -22,7 +22,13 @@ let mockStore = jest.fn()
 
 jest.mock('conf', () => {
   return jest.fn().mockImplementation(() => {
-    return { get: mockGet, delete: mockDelete, set: mockSet, clear: mockClear, store:mockStore}
+    return {
+      get: mockGet,
+      delete: mockDelete,
+      set: mockSet,
+      clear: mockClear,
+      store: mockStore
+    }
   })
 })
 
@@ -63,8 +69,8 @@ describe('hooks', () => {
     mockStore = { 'jwt-auth': { a: 12 } }
     return hooks().then(() => {
       expect(mockClear).toHaveBeenCalled()
-      expect(conf.set).toHaveBeenCalledWith(null, {"jwt-auth": { a: 12 }})
-      expect(mockSet).toHaveBeenCalledWith('__backup__', { "jwt-auth": { a: 12 } })
+      expect(conf.set).toHaveBeenCalledWith(null, { 'jwt-auth': { a: 12 } })
+      expect(mockSet).toHaveBeenCalledWith('__backup__', { 'jwt-auth': { a: 12 } })
     })
   })
 
@@ -73,20 +79,35 @@ describe('hooks', () => {
     mockStore = '{"jwt-auth": { "a": 12 }}'
     return hooks().then(() => {
       expect(mockClear).toHaveBeenCalled()
-      expect(conf.set).toHaveBeenCalledWith(null, {"jwt-auth": { a: 12 }})
+      expect(conf.set).toHaveBeenCalledWith(null, { 'jwt-auth': { a: 12 } })
       expect(mockSet).toHaveBeenCalledWith('__backup__', '{"jwt-auth": { "a": 12 }}')
     })
   })
 
-  test('should not fail if bad json', () => {
-    //mockGet.mockImplementation(() => { return 'badjson}{' })
-    mockStore = '{"jwt-auth":badjson}{}'
+  test('should not fail if empty store', () => {
+    mockStore = null
+    return hooks().then(() => {
+      expect(mockClear).not.toHaveBeenCalled()
+      expect(conf.set).not.toHaveBeenCalled()
+      expect(mockSet).not.toHaveBeenCalled()
+    })
+  })
 
+  test('should not backup if old.backup exists', () => {
+    mockStore = { '__backup__': { 'name': 'old backup' } }
+    return hooks().then(() => {
+      expect(mockClear).not.toHaveBeenCalled()
+      expect(conf.set).not.toHaveBeenCalled()
+      expect(mockSet).not.toHaveBeenCalled()
+    })
+  })
+
+  test('should not fail if bad json', () => {
+    mockStore = '{"jwt-auth":badjson}{}'
     return hooks().then(() => {
       expect(mockClear).toHaveBeenCalled()
       expect(conf.set).not.toHaveBeenCalled()
-      expect(mockSet).toHaveBeenCalledWith('__backup__',mockStore)
-      
+      expect(mockSet).toHaveBeenCalledWith('__backup__', mockStore)
     })
   })
 })
