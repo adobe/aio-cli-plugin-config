@@ -17,9 +17,18 @@ const conf = require('@adobe/aio-cli-config')
 let mockGet = jest.fn()
 let mockDelete = jest.fn()
 let mockSet = jest.fn()
+let mockClear = jest.fn()
+let mockStore = jest.fn()
+
 jest.mock('conf', () => {
   return jest.fn().mockImplementation(() => {
-    return { get: mockGet, delete: mockDelete, set: mockSet }
+    return {
+      get: mockGet,
+      delete: mockDelete,
+      set: mockSet,
+      clear: mockClear,
+      store: mockStore
+    }
   })
 })
 
@@ -39,41 +48,66 @@ describe('hooks', () => {
   })
 
   test('should not set if no conf', () => {
+    mockStore = {}
     return hooks().then(() => {
-      expect(mockGet).toHaveBeenCalledWith('jwt-auth')
       expect(conf.set).not.toHaveBeenCalled()
       expect(mockSet).not.toHaveBeenCalled()
-      expect(mockDelete).toHaveBeenCalledWith('jwt-auth')
+      expect(mockClear).not.toHaveBeenCalled()
     })
   })
 
   test('should upgrade if it is set with object', () => {
-    mockGet.mockImplementation(() => { return { foo: 'bar' } })
+    mockStore = { 'foo': 'bar' }
     return hooks().then(() => {
-      expect(mockGet).toHaveBeenCalledWith('jwt-auth')
-      expect(conf.set).toHaveBeenCalledWith('jwt-auth', { 'foo': 'bar' })
-      expect(mockSet).toHaveBeenCalledWith('jwt-auth-backup', { 'foo': 'bar' })
-      expect(mockDelete).toHaveBeenCalledWith('jwt-auth')
+      expect(conf.set).toHaveBeenCalledWith(null, { 'foo': 'bar' })
+      expect(mockSet).toHaveBeenCalledWith('__backup__', { 'foo': 'bar' })
+      expect(mockClear).toHaveBeenCalled()
     })
   })
 
   test('should upgrade with json', () => {
-    mockGet.mockImplementation(() => { return '{ "a": 12 }' })
+    mockStore = { 'jwt-auth': { a: 12 } }
     return hooks().then(() => {
-      expect(mockGet).toHaveBeenCalledWith('jwt-auth')
-      expect(conf.set).toHaveBeenCalledWith('jwt-auth', { a: 12 })
-      expect(mockSet).toHaveBeenCalledWith('jwt-auth-backup', '{ "a": 12 }')
-      expect(mockDelete).toHaveBeenCalledWith('jwt-auth')
+      expect(mockClear).toHaveBeenCalled()
+      expect(conf.set).toHaveBeenCalledWith(null, { 'jwt-auth': { a: 12 } })
+      expect(mockSet).toHaveBeenCalledWith('__backup__', { 'jwt-auth': { a: 12 } })
+    })
+  })
+
+  // also invalid json
+  test('should upgrade with json-string', () => {
+    mockStore = '{"jwt-auth": { "a": 12 }}'
+    return hooks().then(() => {
+      expect(mockClear).toHaveBeenCalled()
+      expect(conf.set).toHaveBeenCalledWith(null, { 'jwt-auth': { a: 12 } })
+      expect(mockSet).toHaveBeenCalledWith('__backup__', '{"jwt-auth": { "a": 12 }}')
+    })
+  })
+
+  test('should not fail if empty store', () => {
+    mockStore = null
+    return hooks().then(() => {
+      expect(mockClear).not.toHaveBeenCalled()
+      expect(conf.set).not.toHaveBeenCalled()
+      expect(mockSet).not.toHaveBeenCalled()
+    })
+  })
+
+  test('should not backup if old.backup exists', () => {
+    mockStore = { '__backup__': { 'name': 'old backup' } }
+    return hooks().then(() => {
+      expect(mockClear).not.toHaveBeenCalled()
+      expect(conf.set).not.toHaveBeenCalled()
+      expect(mockSet).not.toHaveBeenCalled()
     })
   })
 
   test('should not fail if bad json', () => {
-    mockGet.mockImplementation(() => { return 'badjson}{' })
+    mockStore = '{"jwt-auth":badjson}{}'
     return hooks().then(() => {
-      expect(mockGet).toHaveBeenCalledWith('jwt-auth')
+      expect(mockClear).toHaveBeenCalled()
       expect(conf.set).not.toHaveBeenCalled()
-      expect(mockSet).toHaveBeenCalledWith('jwt-auth-backup', 'badjson}{')
-      expect(mockDelete).toHaveBeenCalledWith('jwt-auth')
+      expect(mockSet).toHaveBeenCalledWith('__backup__', mockStore)
     })
   })
 })
