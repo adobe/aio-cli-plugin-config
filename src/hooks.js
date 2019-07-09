@@ -38,13 +38,11 @@ const upgrade = () => {
 }
 
 /**
- * 1. hoists variables in the ./.env file to process.env
- * 2. upgrades existing 'conf' configuration to aio-cli-config
- * 3. prints out active config
+ * 1. upgrades existing 'conf' configuration to aio-cli-config
+ * 2. prints out active config
  */
 module.exports = async function() {
   upgrade()
-  config.dotenv()
   debug(hjson.stringify(config.get(), {
     condense: true,
     emitRootBraces: true,

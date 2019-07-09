@@ -41,12 +41,6 @@ describe('hooks', () => {
     expect(typeof hooks).toBe('function')
   })
 
-  test('should call dotenv', () => {
-    return hooks().then(() => {
-      expect(conf.dotenv).toHaveBeenCalled()
-    })
-  })
-
   test('should not set if no conf', () => {
     mockStore = {}
     return hooks().then(() => {
