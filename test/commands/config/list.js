@@ -14,7 +14,7 @@ const { stdout } = require('stdout-stderr')
 const TheCommand = require('../../../src/commands/config/list.js')
 const fs = require('fs')
 
-jest.mock('@adobe/aio-cli-config/src/Config', () => {
+jest.mock('@adobe/aio-cna-core-config/src/Config', () => {
   return jest.fn().mockImplementation(() => {
     return {
       values: { a: 1 },
