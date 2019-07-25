@@ -11,9 +11,9 @@ governing permissions and limitations under the License.
 */
 
 const TheCommand = require('../../../src/commands/config/set.js')
-const config = require('@adobe/aio-cli-config')
+const config = require('@adobe/aio-cna-core-config')
 const path = require('path')
-const { mockSet } = require('@adobe/aio-cli-config/src/Config')
+const { mockSet } = require('@adobe/aio-cna-core-config/src/Config')
 
 jest.mock('cli-ux')
 const { cli } = require('cli-ux')
