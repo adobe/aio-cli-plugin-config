@@ -24,7 +24,7 @@ const toJson = (item) => {
 const upgrade = () => {
   try {
     const oldConf = new OldConf({ projectName: '@adobe/aio-cli-plugin-config' })
-    let data = oldConf.store || {}
+    const data = oldConf.store || {}
 
     if (Object.keys(data).length > 0 && !data['__backup__']) {
       oldConf.clear()

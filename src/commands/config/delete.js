@@ -16,7 +16,7 @@ class DeleteCommand extends BaseCommand {
   async run() {
     const { argv, flags } = this.parse(DeleteCommand)
 
-    for (let arg of argv) {
+    for (const arg of argv) {
       this.cliConfig.set(arg, null, !!flags.local)
     }
   }
