@@ -22,7 +22,7 @@ class GetCommand extends BaseCommand {
     else if (flags.global) source = 'global'
     else if (flags.env) source = 'env'
 
-    let vars = this.cliConfig.get(args.key, source)
+    const vars = this.cliConfig.get(args.key, source)
 
     if (vars == null || Object.keys(vars).length === 0) return
 

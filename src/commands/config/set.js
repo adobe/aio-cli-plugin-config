@@ -43,7 +43,7 @@ class SetCommand extends BaseCommand {
       value = await cli.prompt('value', { type: 'normal' })
     } else if (value == null) {
       if (args.key.indexOf('=') > 0) {
-        let parts = args.key.split('=')
+        const parts = args.key.split('=')
         args.key = parts.shift()
         value = parts.join('=')
       } else {
@@ -74,7 +74,7 @@ SetCommand.description = 'sets a persistent config value'
 SetCommand.usage = [
   'config set key \'a value\'       # set key to \'a value\'',
   'config set key -f value.json   # set key to the json found in the file value.json',
-  'config set -j key < value.json # set key to the json found in the file value.json' ]
+  'config set -j key < value.json # set key to the json found in the file value.json']
 
 SetCommand.flags = {
   ...BaseCommand.flags,
