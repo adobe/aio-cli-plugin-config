@@ -53,7 +53,7 @@ USAGE
 
 ## `./bin/run config`
 
-list, get, set, delete, and edit persistent configuration data
+List, get, set, delete, and edit persistent configuration data
 
 ```
 USAGE
@@ -82,7 +82,7 @@ _See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugi
 
 ## `./bin/run config:clear`
 
-clears all persistent config values
+Clears all persistent config values
 
 ```
 USAGE
@@ -98,7 +98,7 @@ _See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugi
 
 ## `./bin/run config:delete KEYS...`
 
-deletes persistent config values
+Deletes persistent config values
 
 ```
 USAGE
@@ -117,7 +117,7 @@ _See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plug
 
 ## `./bin/run config:edit`
 
-edit config file
+Edit config file
 
 ```
 USAGE
@@ -132,7 +132,7 @@ _See code: [src/commands/config/edit.js](https://github.com/adobe/aio-cli-plugin
 
 ## `./bin/run config:get KEY`
 
-gets a persistent config value
+Gets a persistent config value
 
 ```
 USAGE
@@ -150,7 +150,7 @@ _See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-
 
 ## `./bin/run config:list`
 
-lists all persistent config values
+Lists all persistent config values
 
 ```
 USAGE
@@ -172,7 +172,7 @@ _See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin
 
 ## `./bin/run config set key 'a value'       # set key to 'a value'`
 
-sets a persistent config value
+Sets a persistent config value
 
 ```
 USAGE
