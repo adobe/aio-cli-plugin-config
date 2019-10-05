@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 
 const Hooks = require('../../src/hooks.js')
 const hooks = Hooks.bind({ debug: () => true })
-const conf = require('@adobe/aio-cna-core-config')
+const conf = require('@adobe/aio-lib-core-config')
 
 let mockGet = jest.fn()
 let mockDelete = jest.fn()

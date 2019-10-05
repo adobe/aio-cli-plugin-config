@@ -11,7 +11,7 @@ governing permissions and limitations under the License.
 */
 
 const { Command, flags } = require('@oclif/command')
-const Config = require('@adobe/aio-cna-core-config/src/Config')
+const Config = require('@adobe/aio-lib-core-config/src/Config')
 const hjson = require('hjson')
 const yaml = require('js-yaml')
 
