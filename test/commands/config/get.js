@@ -12,7 +12,7 @@ governing permissions and limitations under the License.
 
 const { stdout } = require('stdout-stderr')
 const TheCommand = require('../../../src/commands/config/get.js')
-const { mockGet } = require('@adobe/aio-cna-core-config/src/Config')
+const { mockGet } = require('@adobe/aio-lib-core-config/src/Config')
 
 describe('get', () => {
   afterEach(() => {

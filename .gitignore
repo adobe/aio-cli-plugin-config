@@ -11,3 +11,5 @@ junit.xml
 /tmp
 .aio
 /coverage
+
+oclif.manifest.json
