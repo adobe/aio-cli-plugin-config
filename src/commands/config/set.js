@@ -15,7 +15,7 @@ const BaseCommand = require('../../base-command')
 const fs = require('fs')
 const yaml = require('js-yaml')
 const hjson = require('hjson')
-const { getPipedData } = require('@adobe/aio-cna-core-config')
+const { getPipedData } = require('@adobe/aio-lib-core-config')
 const { cli } = require('cli-ux')
 const path = require('path')
 

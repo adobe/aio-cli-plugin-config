@@ -1,4 +1,4 @@
-const config = require('@adobe/aio-cna-core-config')
+const config = require('@adobe/aio-lib-core-config')
 const OldConf = require('conf')
 const debug = require('debug')('aio-cli-plugin-conf')
 const hjson = require('hjson')
