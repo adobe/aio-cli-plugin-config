@@ -29,7 +29,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "jest": "^24.8.0",
     "jest-haste-map": "^24.5.0",
-    "jest-junit": "^9.0.0",
+    "jest-junit": "^10.0.0",
     "jest-resolve": "^24.5.0",
     "stdout-stderr": "^0.1.9"
   },
