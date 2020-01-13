@@ -5,7 +5,7 @@
   "author": "Adobe Inc.",
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
-    "@adobe/aio-lib-core-config": "1.2.0",
+    "@adobe/aio-lib-core-config": ">=1.2.2",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/errors": "^1.1.2",
@@ -69,7 +69,8 @@
     "unit-tests": "jest --ci",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "postinstall": "patch-package --patch-dir node_modules/@adobe/aio-lib-core-config/patches"
   },
   "jest": {
     "collectCoverage": true,
