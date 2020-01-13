@@ -5,10 +5,11 @@
   "author": "Adobe Inc.",
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
-    "@adobe/aio-lib-core-config": ">=1.2.2",
+    "@adobe/aio-lib-core-config": ">=1.2.3",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/errors": "^1.1.2",
+    "cli-ux": "^5.4.1",
     "conf": "^6.1.0",
     "hjson": "^3.1.2",
     "js-yaml": "^3.13.0"
@@ -27,6 +28,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-standard": "^4.0.0",
+    "globby": "^11.0.0",
     "jest": "^24.8.0",
     "jest-haste-map": "^24.5.0",
     "jest-junit": "^10.0.0",
@@ -69,8 +71,7 @@
     "unit-tests": "jest --ci",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",
-    "version": "oclif-dev readme && git add README.md",
-    "postinstall": "patch-package --patch-dir node_modules/@adobe/aio-lib-core-config/patches"
+    "version": "oclif-dev readme && git add README.md"
   },
   "jest": {
     "collectCoverage": true,
