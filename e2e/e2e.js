@@ -22,10 +22,7 @@ test('sdk init test', async () => {
 
   console.log(chalk.bold('    - list config'))
   list_result = execa.sync('./bin/run', ['config:list'], { stderr: 'inherit' })
-  sanitized_result = list_result.output[1].replace(/(['"])?([a-z0-9A-Z_]+)(['"])?:/g, '"$2": ')
-  console.log(sanitized_result)
-  result_json = JSON.parse(sanitized_result)
-  expect(result_json.test_key).toBe("a value")
+  expect(list_result.output[1].includes('abc: "another value"'))
 
   console.log(chalk.bold('    - delete the test config'))
   execa.sync('./bin/run', ['config:delete', 'test_key'], { stderr: 'inherit' })
