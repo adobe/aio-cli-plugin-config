@@ -11,21 +11,23 @@ governing permissions and limitations under the License.
 
 const execa = require('execa')
 const chalk = require('chalk').default
+const fs = require('fs')
 
-test('sdk init test', async () => {
+test('config create test', async () => {
 
-  const name = 'aio-cli-plugin-config'
+  const packagejson = JSON.parse(fs.readFileSync('package.json').toString())
+  const name = `${packagejson.name}`
   console.log(chalk.blue(`> e2e tests for ${chalk.bold(name)}`))
 
   console.log(chalk.bold('    - set a new config'))
-  execa.sync('./bin/run', ['config:set', 'test_key', 'a value'], { stderr: 'inherit' })
+  expect(() => { execa.sync('./bin/run', ['config:set', 'test_key', 'a value'], { stderr: 'inherit' }) }).not.toThrow()
 
   console.log(chalk.bold('    - list config'))
   list_result = execa.sync('./bin/run', ['config:list'], { stderr: 'inherit' })
   expect(list_result.output[1].includes('abc: "another value"'))
 
   console.log(chalk.bold('    - delete the test config'))
-  execa.sync('./bin/run', ['config:delete', 'test_key'], { stderr: 'inherit' })
+  expect(() => { execa.sync('./bin/run', ['config:delete', 'test_key'], { stderr: 'inherit' }) }).not.toThrow()
 
   console.log(chalk.green(`    - done for ${chalk.bold(name)}`))
 });
