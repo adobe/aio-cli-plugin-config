@@ -46,7 +46,8 @@ class BaseCommand extends Command {
             separator: true,
             bracesSameLine: true,
             multiline: 'off',
-            colors: false }))
+            colors: false
+          }))
         }
       }
     }

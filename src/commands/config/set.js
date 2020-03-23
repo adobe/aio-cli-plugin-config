@@ -26,7 +26,7 @@ class SetCommand extends BaseCommand {
     let value = args['value|filename']
     if (flags.file) {
       if (!value) {
-        this.error(`Missing filename`)
+        this.error('Missing filename')
       }
       try {
         value = path.resolve(value)
@@ -62,7 +62,7 @@ class SetCommand extends BaseCommand {
     }
 
     if (!value) {
-      this.error(`Missing value`)
+      this.error('Missing value')
     }
 
     this.cliConfig.set(args.key, value, !!flags.local)
