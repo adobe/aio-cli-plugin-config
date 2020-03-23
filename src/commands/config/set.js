@@ -20,7 +20,7 @@ const { cli } = require('cli-ux')
 const path = require('path')
 
 class SetCommand extends BaseCommand {
-  async run() {
+  async run () {
     const { args, flags } = this.parse(SetCommand)
 
     let value = args['value|filename']

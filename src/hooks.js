@@ -41,7 +41,7 @@ const upgrade = () => {
  * 1. upgrades existing 'conf' configuration to aio-cli-config
  * 2. prints out active config
  */
-module.exports = async function() {
+module.exports = async function () {
   upgrade()
   debug(hjson.stringify(config.get(), {
     condense: true,

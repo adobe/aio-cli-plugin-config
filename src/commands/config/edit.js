@@ -10,17 +10,17 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const child_process = require('child_process')
+const childProcess = require('child_process')
 const BaseCommand = require('../../base-command')
 
 class EditCommand extends BaseCommand {
-  async run() {
+  async run () {
     const { flags } = this.parse(EditCommand)
 
     const file = (flags.local) ? this.cliConfig.local.file : this.cliConfig.global.file
 
     const cmd = (process.platform === 'win32') ? `${process.env.EDITOR || 'notepad'}` : `${process.env.EDITOR || 'vi'}`
-    child_process.spawn(cmd, [file], {
+    childProcess.spawn(cmd, [file], {
       stdio: 'inherit',
       detached: true
     })
