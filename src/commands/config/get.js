@@ -14,7 +14,7 @@ const { flags } = require('@oclif/command')
 const BaseCommand = require('../../base-command')
 
 class GetCommand extends BaseCommand {
-  async run() {
+  async run () {
     const { args, flags } = this.parse(GetCommand)
 
     let source

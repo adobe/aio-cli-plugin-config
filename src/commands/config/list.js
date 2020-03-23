@@ -14,7 +14,7 @@ const { flags } = require('@oclif/command')
 const BaseCommand = require('../../base-command')
 
 class ListCommand extends BaseCommand {
-  async run() {
+  async run () {
     const { flags } = this.parse(ListCommand)
     let vars = this.cliConfig.values
 

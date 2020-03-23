@@ -26,7 +26,7 @@ const upgrade = () => {
     const oldConf = new OldConf({ projectName: '@adobe/aio-cli-plugin-config' })
     const data = oldConf.store || {}
 
-    if (Object.keys(data).length > 0 && !data['__backup__']) {
+    if (Object.keys(data).length > 0 && !data.__backup__) {
       oldConf.clear()
       oldConf.set('__backup__', data)
       config.set(null, toJson(data))
@@ -41,7 +41,7 @@ const upgrade = () => {
  * 1. upgrades existing 'conf' configuration to aio-cli-config
  * 2. prints out active config
  */
-module.exports = async function() {
+module.exports = async function () {
   upgrade()
   debug(hjson.stringify(config.get(), {
     condense: true,
@@ -49,5 +49,6 @@ module.exports = async function() {
     separator: true,
     bracesSameLine: true,
     multiline: 'off',
-    colors: false }))
+    colors: false
+  }))
 }

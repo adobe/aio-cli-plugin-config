@@ -15,7 +15,7 @@ const BaseCommand = require('../../base-command')
 const { cli } = require('cli-ux')
 
 class ClearCommand extends BaseCommand {
-  async run() {
+  async run () {
     const { flags } = this.parse(ClearCommand)
 
     if (!flags.force) {

@@ -13,7 +13,7 @@ const execa = require('execa')
 const chalk = require('chalk').default
 const fs = require('fs')
 
-test('config create test', async() => {
+test('config create test', async () => {
   const packagejson = JSON.parse(fs.readFileSync('package.json').toString())
   const name = `${packagejson.name}`
   console.log(chalk.blue(`> e2e tests for ${chalk.bold(name)}`))
@@ -22,8 +22,8 @@ test('config create test', async() => {
   expect(() => { execa.sync('./bin/run', ['config:set', 'test_key', 'a value'], { stderr: 'inherit' }) }).not.toThrow()
 
   console.log(chalk.bold('    - list config'))
-  const list_result = execa.sync('./bin/run', ['config:list'], { stderr: 'inherit' })
-  expect(list_result.output[1]).toEqual(expect.stringContaining('abc: "another value"'))
+  const listResult = execa.sync('./bin/run', ['config:list'], { stderr: 'inherit' })
+  expect(listResult.output[1]).toEqual(expect.stringContaining('abc: "another value"'))
 
   console.log(chalk.bold('    - delete the test config'))
   expect(() => { execa.sync('./bin/run', ['config:delete', 'test_key'], { stderr: 'inherit' }) }).not.toThrow()

@@ -20,13 +20,13 @@ const { cli } = require('cli-ux')
 const path = require('path')
 
 class SetCommand extends BaseCommand {
-  async run() {
+  async run () {
     const { args, flags } = this.parse(SetCommand)
 
     let value = args['value|filename']
     if (flags.file) {
       if (!value) {
-        this.error(`Missing filename`)
+        this.error('Missing filename')
       }
       try {
         value = path.resolve(value)
@@ -62,7 +62,7 @@ class SetCommand extends BaseCommand {
     }
 
     if (!value) {
-      this.error(`Missing value`)
+      this.error('Missing value')
     }
 
     this.cliConfig.set(args.key, value, !!flags.local)

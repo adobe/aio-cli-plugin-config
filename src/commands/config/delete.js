@@ -13,7 +13,7 @@ governing permissions and limitations under the License.
 const BaseCommand = require('../../base-command')
 
 class DeleteCommand extends BaseCommand {
-  async run() {
+  async run () {
     const { argv, flags } = this.parse(DeleteCommand)
 
     for (const arg of argv) {

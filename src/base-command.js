@@ -16,7 +16,7 @@ const hjson = require('hjson')
 const yaml = require('js-yaml')
 
 class BaseCommand extends Command {
-  get cliConfig() {
+  get cliConfig () {
     if (!this._config) {
       this._config = new Config()
       this._config.reload()
@@ -24,7 +24,7 @@ class BaseCommand extends Command {
     return this._config
   }
 
-  printObject(obj) {
+  printObject (obj) {
     const { flags } = this.parse(this.constructor)
 
     let format = 'hjson'
@@ -46,7 +46,8 @@ class BaseCommand extends Command {
             separator: true,
             bracesSameLine: true,
             multiline: 'off',
-            colors: false }))
+            colors: false
+          }))
         }
       }
     }
