@@ -78,7 +78,7 @@ EXAMPLES
   $ aio config:clear
 ```
 
-_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.2.1/src/commands/config/index.js)_
+_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/index.js)_
 
 ## `./bin/run config:clear`
 
@@ -94,7 +94,7 @@ OPTIONS
   -l, --local   local config
 ```
 
-_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.2.1/src/commands/config/clear.js)_
+_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/clear.js)_
 
 ## `./bin/run config:delete KEYS...`
 
@@ -113,7 +113,7 @@ ALIASES
   $ ./bin/run config:rm
 ```
 
-_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.2.1/src/commands/config/delete.js)_
+_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/delete.js)_
 
 ## `./bin/run config:edit`
 
@@ -128,7 +128,7 @@ OPTIONS
   -l, --local   local config
 ```
 
-_See code: [src/commands/config/edit.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.2.1/src/commands/config/edit.js)_
+_See code: [src/commands/config/edit.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/edit.js)_
 
 ## `./bin/run config:get KEY`
 
@@ -146,7 +146,7 @@ OPTIONS
   -y, --yaml    output in yaml
 ```
 
-_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.2.1/src/commands/config/get.js)_
+_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/get.js)_
 
 ## `./bin/run config:list`
 
@@ -168,7 +168,7 @@ ALIASES
   $ ./bin/run config:ls
 ```
 
-_See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.2.1/src/commands/config/list.js)_
+_See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/list.js)_
 
 ## `./bin/run config set key 'a value'       # set key to 'a value'`
 
@@ -189,5 +189,5 @@ OPTIONS
   -y, --yaml         value is yaml
 ```
 
-_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/v2.2.1/src/commands/config/set.js)_
+_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/set.js)_
 <!-- commandsstop -->

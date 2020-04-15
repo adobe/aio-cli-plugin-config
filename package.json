@@ -60,7 +60,8 @@
       "config": {
         "description": "get, set, delete, and clear persistent configuration data"
       }
-    }
+    },
+    "repositoryPrefix": "<%- repo %>/blob/<%- version %>/<%- commandPath %>"
   },
   "main": "src/index.js",
   "repository": "adobe/aio-cli-plugin-config",
