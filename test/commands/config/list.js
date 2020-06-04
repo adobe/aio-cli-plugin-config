@@ -59,12 +59,12 @@ describe('list', () => {
     return TheCommand.run(['--verbose']).then(() => {
       expect(stdout.output.replace(/\r\n|\r/g, '\n'))
         .toEqual(fs.readFileSync('./test/__fixtures__/verbose.txt', 'utf-8')
-        .replace(/\r\n|\r/g, '\n'))
+          .replace(/\r\n|\r/g, '\n'))
     })
   })
 
   test('empty object', () => {
-    return TheCommand.run([ '-l' ]).then(() => {
+    return TheCommand.run(['-l']).then(() => {
       expect(stdout.output).toEqual('')
     })
   })

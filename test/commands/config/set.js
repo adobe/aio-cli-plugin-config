@@ -19,7 +19,10 @@ jest.mock('cli-ux')
 const { cli } = require('cli-ux')
 
 describe('set', () => {
+  let command
+
   beforeEach(() => {
+    command = new TheCommand([])
     mockSet.mockImplementation(() => { return { a: 12 } })
   })
 
@@ -31,114 +34,107 @@ describe('set', () => {
     expect(Object.keys(TheCommand.flags)).toEqual(['local', 'global', 'json', 'yaml', 'file', 'interactive'])
   })
 
-  test('default', () => {
-    return TheCommand.run(['a-key', 'value']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
-    })
+  test('default', async () => {
+    command.argv = ['a-key', 'value']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
-  test('local', () => {
-    return TheCommand.run(['-l', 'a-key', 'value']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', 'value', true)
-    })
+  test('local', async () => {
+    command.argv = ['-l', 'a-key', 'value']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', 'value', true)
   })
 
-  test('global', () => {
-    return TheCommand.run(['-g', 'a-key', 'value']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
-    })
+  test('global', async () => {
+    command.argv = ['-g', 'a-key', 'value']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
-  test('no value', (done) => {
-    return TheCommand.run(['a-key']).then(done.fail).catch((a) => {
-      expect(a.message).toEqual('Missing value')
-      done()
-    })
+  test('no value', async () => {
+    command.argv = ['a-key']
+    await expect(command.run()).rejects.toEqual(new Error('Missing value'))
   })
 
-  test('get piped data', () => {
+  test('get piped data', async () => {
     config.getPipedData.mockResolvedValue('a file')
-    return TheCommand.run(['-g', 'a-key']).then(() => {
-      expect(config.getPipedData).toHaveBeenCalledWith()
-      expect(mockSet).toHaveBeenCalledWith('a-key', 'a file', false)
-    })
+
+    command.argv = ['-g', 'a-key']
+    await expect(command.run()).resolves.not.toThrowError()
+
+    expect(config.getPipedData).toHaveBeenCalledWith()
+    expect(mockSet).toHaveBeenCalledWith('a-key', 'a file', false)
   })
 
-  test('parse key=value', () => {
-    return TheCommand.run(['a-key=value']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
-    })
+  test('parse key=value', async () => {
+    command.argv = ['a-key=value']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
-  test('parse json', () => {
-    return TheCommand.run(['a-key', '-j', '{a:1}']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', { a: 1 }, false)
-    })
+  test('parse json', async () => {
+    command.argv = ['a-key', '-j', '{a:1}']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', { a: 1 }, false)
   })
 
-  test('throw error on bad yaml parsing', (done) => {
-    return TheCommand.run(['a-key', '-y', 'a:\nhy    ']).then(done.fail).catch((e) => {
-      expect(e.message).toEqual('Cannot parse yaml')
-      done()
-    })
+  test('throw error on bad yaml parsing', async () => {
+    command.argv = ['a-key', '-y', 'a:\nhy    ']
+    await expect(command.run()).rejects.toEqual(new Error('Cannot parse yaml'))
   })
 
-  test('throw error on bad json parsing', (done) => {
-    return TheCommand.run(['a-key', '-j', '{a:1\n']).then(done.fail).catch((e) => {
-      expect(e.message).toEqual('Cannot parse json')
-      done()
-    })
+  test('throw error on bad json parsing', async () => {
+    command.argv = ['a-key', '-j', '{a:1\n']
+    await expect(command.run()).rejects.toEqual(new Error('Cannot parse json'))
   })
 
-  test('parse yaml', () => {
-    return TheCommand.run(['a-key', '-y', 'a:\n  b: true']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: true } }, false)
-    })
+  test('parse yaml', async () => {
+    command.argv = ['a-key', '-y', 'a:\n  b: true']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: true } }, false)
   })
 
-  test('json file', () => {
-    return TheCommand.run(['a-key', '-f', './test/__fixtures__/a.json']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', { a: 12 }, false)
-    })
+  test('json file', async () => {
+    command.argv = ['a-key', '-f', './test/__fixtures__/a.json']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', { a: 12 }, false)
   })
 
-  test('yaml file', () => {
-    return TheCommand.run(['a-key', '-f', './test/__fixtures__/a.yaml']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: 12 } }, false)
-    })
+  test('yaml file', async () => {
+    command.argv = ['a-key', '-f', './test/__fixtures__/a.yaml']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: 12 } }, false)
   })
 
-  test('yml file', () => {
-    return TheCommand.run(['a-key', '-f', './test/__fixtures__/a.yml']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: 12 } }, false)
-    })
+  test('yml file', async () => {
+    command.argv = ['a-key', '-f', './test/__fixtures__/a.yml']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: 12 } }, false)
   })
 
-  test('other file', () => {
-    return TheCommand.run(['a-key', '-f', './test/__fixtures__/a.txt']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', 'raw data', false)
-    })
+  test('other file', async () => {
+    command.argv = ['a-key', '-f', './test/__fixtures__/a.txt']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', 'raw data', false)
   })
 
-  test('file but no value', (done) => {
-    return TheCommand.run(['a-key', '-f']).then(done.fail).catch((a) => {
-      expect(a.message).toEqual('Missing filename')
-      done()
-    })
+  test('file but no value', async () => {
+    command.argv = ['a-key', '-f']
+    await expect(command.run()).rejects.toEqual(new Error('Missing filename'))
   })
 
-  test('file but not exists', (done) => {
-    return TheCommand.run(['a-key', '-f', '/doesnotexist']).then(done.fail).catch((a) => {
-      expect(a.message).toEqual(`Cannot read file: ${path.resolve('/doesnotexist')}`)
-      done()
-    })
+  test('file but not exists', async () => {
+    command.argv = ['a-key', '-f', '/doesnotexist']
+    await expect(command.run()).rejects.toEqual(new Error(`Cannot read file: ${path.resolve('/doesnotexist')}`))
   })
 
-  test('prompt for value', () => {
+  test('prompt for value', async () => {
     config.getPipedData.mockResolvedValue(null)
     cli.prompt = jest.fn(() => 'a value')
-    return TheCommand.run(['a-key', '-i']).then(() => {
-      expect(mockSet).toHaveBeenCalledWith('a-key', 'a value', false)
-    })
+
+    command.argv = ['a-key', '-i']
+    await expect(command.run()).resolves.not.toThrowError()
+    expect(mockSet).toHaveBeenCalledWith('a-key', 'a value', false)
   })
 })
