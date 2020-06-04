@@ -10,23 +10,26 @@
     "@oclif/config": "^1",
     "@oclif/errors": "^1.1.2",
     "cli-ux": "^5.4.1",
-    "conf": "^6.1.0",
     "hjson": "^3.1.2",
     "js-yaml": "^3.13.0"
   },
   "devDependencies": {
+    "@adobe/eslint-config-aio-lib-config": "^1.2.0",
     "@oclif/dev-cli": "^1.21.2",
     "@oclif/plugin-help": "^2.1.4",
     "@oclif/test": "^1",
     "acorn": "^7.0.0",
-    "eslint": "^6.0.0",
+    "chalk": "^4.0.0",
+    "eslint": "^6.2.2",
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "23.13.2",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-promise": "^4.0.0",
-    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.13.2",
+    "eslint-plugin-jsdoc": "^21.0.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "execa": "^4.0.2",
     "globby": "^11.0.0",
     "jest": "^24.8.0",
     "jest-haste-map": "^26.0.0",
@@ -52,9 +55,6 @@
     "devPlugins": [
       "@oclif/plugin-help"
     ],
-    "hooks": {
-      "init": "./src/hooks.js"
-    },
     "topics": {
       "config": {
         "description": "get, set, delete, and clear persistent configuration data"
@@ -65,9 +65,9 @@
   "main": "src/index.js",
   "repository": "adobe/aio-cli-plugin-config",
   "scripts": {
-    "eslint": "eslint src e2e",
+    "lint": "eslint src e2e test",
     "test": "npm run unit-tests",
-    "pretest": "npm run eslint",
+    "pretest": "npm run lint",
     "unit-tests": "jest --ci",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",

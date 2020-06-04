@@ -72,8 +72,8 @@ describe('base-command', () => {
 
     describe('cliConfig', () => {
       test('only gets it once', () => {
-        let config1 = command.cliConfig
-        let config2 = command.cliConfig
+        const config1 = command.cliConfig
+        const config2 = command.cliConfig
         expect(config1).toBe(config2)
       })
     })

@@ -1,10 +1,10 @@
 module.exports = {
   collectCoverage: true,
   verbose: false,
-  collectCoverageFrom: [ 'src/**/*.js' ],
+  collectCoverageFrom: ['src/**/*.js'],
   testRegex: '/test/[^_]*/*.js$',
   coverageDirectory: 'tmp/coverage',
-  'testEnvironment': 'node',
+  testEnvironment: 'node',
   coverageThreshold: {
     global: {
       lines: 100,
@@ -12,7 +12,7 @@ module.exports = {
       statements: 100
     }
   },
-  'setupFilesAfterEnv': [
+  setupFilesAfterEnv: [
     './test/__setup__/jest.setup.js'
   ]
 }

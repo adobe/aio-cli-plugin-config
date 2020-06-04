@@ -13,8 +13,8 @@ governing permissions and limitations under the License.
 const TheCommand = require('../../../src/commands/config/edit.js')
 
 jest.mock('child_process')
-const child_process = require('child_process')
-let platform = process.platform
+const childProcess = require('child_process')
+const platform = process.platform
 
 afterAll(() => {
   Object.defineProperty(process, 'platform', {
@@ -36,7 +36,7 @@ describe('get', () => {
       value: 'darwin'
     })
     return TheCommand.run([]).then(() => {
-      expect(child_process.spawn).toHaveBeenCalledWith('vi', ['global'], { 'detached': true, 'stdio': 'inherit' })
+      expect(childProcess.spawn).toHaveBeenCalledWith('vi', ['global'], { detached: true, stdio: 'inherit' })
     })
   })
 
@@ -45,7 +45,7 @@ describe('get', () => {
       value: 'linux'
     })
     return TheCommand.run([]).then(() => {
-      expect(child_process.spawn).toHaveBeenCalledWith('vi', ['global'], { 'detached': true, 'stdio': 'inherit' })
+      expect(childProcess.spawn).toHaveBeenCalledWith('vi', ['global'], { detached: true, stdio: 'inherit' })
     })
   })
 
@@ -54,7 +54,7 @@ describe('get', () => {
       value: 'win32'
     })
     return TheCommand.run([]).then(() => {
-      expect(child_process.spawn).toHaveBeenCalledWith('notepad', ['global'], { 'detached': true, 'stdio': 'inherit' })
+      expect(childProcess.spawn).toHaveBeenCalledWith('notepad', ['global'], { detached: true, stdio: 'inherit' })
     })
   })
 
@@ -63,7 +63,7 @@ describe('get', () => {
       value: 'darwin'
     })
     return TheCommand.run(['-l']).then(() => {
-      expect(child_process.spawn).toHaveBeenCalledWith('vi', ['local'], { 'detached': true, 'stdio': 'inherit' })
+      expect(childProcess.spawn).toHaveBeenCalledWith('vi', ['local'], { detached: true, stdio: 'inherit' })
     })
   })
 
@@ -72,14 +72,14 @@ describe('get', () => {
       value: 'darwin'
     })
     return TheCommand.run(['-g']).then(() => {
-      expect(child_process.spawn).toHaveBeenCalledWith('vi', ['global'], { 'detached': true, 'stdio': 'inherit' })
+      expect(childProcess.spawn).toHaveBeenCalledWith('vi', ['global'], { detached: true, stdio: 'inherit' })
     })
   })
 
   test('default - env', () => {
-    process.env['EDITOR'] = 'foobar'
+    process.env.EDITOR = 'foobar'
     return TheCommand.run([]).then(() => {
-      expect(child_process.spawn).toHaveBeenCalledWith('foobar', ['global'], { 'detached': true, 'stdio': 'inherit' })
+      expect(childProcess.spawn).toHaveBeenCalledWith('foobar', ['global'], { detached: true, stdio: 'inherit' })
     })
   })
 })
