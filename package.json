@@ -10,7 +10,6 @@
     "@oclif/config": "^1",
     "@oclif/errors": "^1.1.2",
     "cli-ux": "^5.4.1",
-    "conf": "^6.1.0",
     "hjson": "^3.1.2",
     "js-yaml": "^3.13.0"
   },
@@ -52,9 +51,6 @@
     "devPlugins": [
       "@oclif/plugin-help"
     ],
-    "hooks": {
-      "init": "./src/hooks.js"
-    },
     "topics": {
       "config": {
         "description": "get, set, delete, and clear persistent configuration data"
@@ -65,9 +61,9 @@
   "main": "src/index.js",
   "repository": "adobe/aio-cli-plugin-config",
   "scripts": {
-    "eslint": "eslint src e2e",
+    "lint": "eslint src e2e test",
     "test": "npm run unit-tests",
-    "pretest": "npm run eslint",
+    "pretest": "npm run lint",
     "unit-tests": "jest --ci",
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",
