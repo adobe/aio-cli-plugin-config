@@ -28,36 +28,30 @@ Config Plugin for the Adobe I/O CLI
 * [Commands](#commands)
 <!-- tocstop -->
 # Usage
-<!-- usage -->
-```sh-session
-$ npm install -g @adobe/aio-cli-plugin-config
-$ ./bin/run COMMAND
-running command...
-$ ./bin/run (-v|--version|version)
-@adobe/aio-cli-plugin-config/2.2.1 darwin-x64 node-v10.18.1
-$ ./bin/run --help [COMMAND]
-USAGE
-  $ ./bin/run COMMAND
-...
 ```
-<!-- usagestop -->
+$ aio plugins:install -g @adobe/aio-cli-plugin-config
+$ # OR
+$ aio discover -i
+$ aio config --help...
+```
+
 # Commands
 <!-- commands -->
-* [`./bin/run config`](#binrun-config)
-* [`./bin/run config:clear`](#binrun-configclear)
-* [`./bin/run config:delete KEYS...`](#binrun-configdelete-keys)
-* [`./bin/run config:edit`](#binrun-configedit)
-* [`./bin/run config:get KEY`](#binrun-configget-key)
-* [`./bin/run config:list`](#binrun-configlist)
-* [`./bin/run config set key 'a value'       # set key to 'a value'`](#binrun-config-set-key-a-value--------set-key-to-a-value)
+* [`aio config`](#aio-config)
+* [`aio config:clear`](#aio-configclear)
+* [`aio config:delete KEYS...`](#aio-configdelete-keys)
+* [`aio config:edit`](#aio-configedit)
+* [`aio config:get KEY`](#aio-configget-key)
+* [`aio config:list`](#aio-configlist)
+* [`aio config set key 'a value'       # set key to 'a value'`](#aio-config-set-key-a-value--------set-key-to-a-value)
 
-## `./bin/run config`
+## `aio config`
 
 list, get, set, delete, and edit persistent configuration data
 
 ```
 USAGE
-  $ ./bin/run config
+  $ aio config
 
 OPTIONS
   -e, --env     environment variables
@@ -68,7 +62,7 @@ OPTIONS
   --verbose     show all config values
 
 ALIASES
-  $ ./bin/run config:ls
+  $ aio config:ls
 
 EXAMPLES
   $ aio config:list
@@ -80,13 +74,13 @@ EXAMPLES
 
 _See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/index.js)_
 
-## `./bin/run config:clear`
+## `aio config:clear`
 
 clears all persistent config values
 
 ```
 USAGE
-  $ ./bin/run config:clear
+  $ aio config:clear
 
 OPTIONS
   -f, --force   do not prompt for confirmation
@@ -96,32 +90,32 @@ OPTIONS
 
 _See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/clear.js)_
 
-## `./bin/run config:delete KEYS...`
+## `aio config:delete KEYS...`
 
 deletes persistent config values
 
 ```
 USAGE
-  $ ./bin/run config:delete KEYS...
+  $ aio config:delete KEYS...
 
 OPTIONS
   -g, --global  global config
   -l, --local   local config
 
 ALIASES
-  $ ./bin/run config:del
-  $ ./bin/run config:rm
+  $ aio config:del
+  $ aio config:rm
 ```
 
 _See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/delete.js)_
 
-## `./bin/run config:edit`
+## `aio config:edit`
 
 edit config file
 
 ```
 USAGE
-  $ ./bin/run config:edit
+  $ aio config:edit
 
 OPTIONS
   -g, --global  global config
@@ -130,13 +124,13 @@ OPTIONS
 
 _See code: [src/commands/config/edit.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/edit.js)_
 
-## `./bin/run config:get KEY`
+## `aio config:get KEY`
 
 gets a persistent config value
 
 ```
 USAGE
-  $ ./bin/run config:get KEY
+  $ aio config:get KEY
 
 OPTIONS
   -e, --env     environment variables
@@ -148,13 +142,13 @@ OPTIONS
 
 _See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/get.js)_
 
-## `./bin/run config:list`
+## `aio config:list`
 
 lists all persistent config values
 
 ```
 USAGE
-  $ ./bin/run config:list
+  $ aio config:list
 
 OPTIONS
   -e, --env     environment variables
@@ -165,20 +159,20 @@ OPTIONS
   --verbose     show all config values
 
 ALIASES
-  $ ./bin/run config:ls
+  $ aio config:ls
 ```
 
 _See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin-config/blob/2.2.1/src/commands/config/list.js)_
 
-## `./bin/run config set key 'a value'       # set key to 'a value'`
+## `aio config set key 'a value'       # set key to 'a value'`
 
 sets a persistent config value
 
 ```
 USAGE
-  $ ./bin/run config set key 'a value'       # set key to 'a value'
-  $ ./bin/run config set key -f value.json   # set key to the json found in the file value.json
-  $ ./bin/run config set -j key < value.json # set key to the json found in the file value.json
+  $ aio config set key 'a value'       # set key to 'a value'
+  $ aio config set key -f value.json   # set key to the json found in the file value.json
+  $ aio config set -j key < value.json # set key to the json found in the file value.json
 
 OPTIONS
   -f, --file         value is a path to a file
