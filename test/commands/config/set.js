@@ -15,8 +15,19 @@ const config = require('@adobe/aio-lib-core-config')
 const path = require('path')
 const { mockSet } = require('@adobe/aio-lib-core-config/src/Config')
 
-jest.mock('cli-ux')
-const { cli } = require('cli-ux')
+const { CliUx: { ux: cli } } = require('@oclif/core')
+jest.mock('@oclif/core', () => {
+  return {
+    ...jest.requireActual('@oclif/core'),
+    CliUx: {
+      ux: {
+        cli: {
+          prompt: jest.fn()
+        }
+      }
+    }
+  }
+})
 
 describe('set', () => {
   let command

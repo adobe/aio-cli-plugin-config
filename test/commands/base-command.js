@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Command } = require('@oclif/command')
+const { Command } = require('@oclif/core')
 const TheCommand = require('../../src/base-command')
 const { stdout } = require('stdout-stderr')
 const hjson = require('hjson')
@@ -42,30 +42,30 @@ describe('base-command', () => {
         expect(stdout.output).toEqual('')
       })
 
-      test('yaml', () => {
+      test('yaml', async () => {
         command = new TheCommand(['--yaml'], { })
-        command.printObject({ foo: { bar: true } })
+        await command.printObject({ foo: { bar: true } })
         expect(stdout.output).toEqual('foo:\n  bar: true\n\n')
       })
 
-      test('json', () => {
+      test('json', async () => {
         command = new TheCommand(['--json'], { })
-        command.printObject({ foo: { bar: true } })
+        await command.printObject({ foo: { bar: true } })
         expect(stdout.output).toEqual('{"foo":{"bar":true}}\n')
       })
 
-      test('returns parsed value 2', () => {
-        command.printObject(1)
+      test('returns parsed value 2', async () => {
+        await command.printObject(1)
         expect(stdout.output).toEqual('1\n')
       })
 
-      test('returns parsed value 3', () => {
-        command.printObject('foo')
+      test('returns parsed value 3', async () => {
+        await command.printObject('foo')
         expect(stdout.output).toEqual('foo\n')
       })
 
-      test('returns parsed value 4', () => {
-        command.printObject({ a: 1 })
+      test('returns parsed value 4', async () => {
+        await command.printObject({ a: 1 })
         expect(hjson.parse(stdout.output)).toEqual({ a: 1 })
       })
     })

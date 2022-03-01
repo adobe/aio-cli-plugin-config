@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Command, flags } = require('@oclif/command')
+const { Command, Flags } = require('@oclif/core')
 const Config = require('@adobe/aio-lib-core-config/src/Config')
 const hjson = require('hjson')
 const yaml = require('js-yaml')
@@ -24,8 +24,8 @@ class BaseCommand extends Command {
     return this._config
   }
 
-  printObject (obj) {
-    const { flags } = this.parse(this.constructor)
+  async printObject (obj) {
+    const { flags } = await this.parse(this.constructor)
 
     let format = 'hjson'
     if (flags.yaml) format = 'yaml'
@@ -59,10 +59,10 @@ class BaseCommand extends Command {
 }
 
 BaseCommand.flags = {
-  local: flags.boolean({ char: 'l', description: 'local config', exclusive: ['global'] }),
-  global: flags.boolean({ char: 'g', description: 'global config', exclusive: ['local'] }),
-  json: flags.boolean({ char: 'j', hidden: true, exclusive: ['yaml'] }),
-  yaml: flags.boolean({ char: 'y', hidden: true, exclusive: ['json'] })
+  local: Flags.boolean({ char: 'l', description: 'local config', exclusive: ['global'] }),
+  global: Flags.boolean({ char: 'g', description: 'global config', exclusive: ['local'] }),
+  json: Flags.boolean({ char: 'j', hidden: true, exclusive: ['yaml'] }),
+  yaml: Flags.boolean({ char: 'y', hidden: true, exclusive: ['json'] })
 }
 
 module.exports = BaseCommand

@@ -10,18 +10,17 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const { Flags, CliUx: { ux: cli } } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
 const fs = require('fs')
 const yaml = require('js-yaml')
 const hjson = require('hjson')
 const { getPipedData } = require('@adobe/aio-lib-core-config')
-const { cli } = require('cli-ux')
 const path = require('path')
 
 class SetCommand extends BaseCommand {
   async run () {
-    const { args, flags } = this.parse(SetCommand)
+    const { args, flags } = await this.parse(SetCommand)
 
     let value = args['value|filename']
     if (flags.file) {
@@ -78,10 +77,10 @@ SetCommand.usage = [
 
 SetCommand.flags = {
   ...BaseCommand.flags,
-  json: flags.boolean({ char: 'j', hidden: false, description: 'value is json' }),
-  yaml: flags.boolean({ char: 'y', hidden: false, description: 'value is yaml' }),
-  file: flags.boolean({ char: 'f', description: 'value is a path to a file', exclusive: ['interactive'] }),
-  interactive: flags.boolean({ char: 'i', description: 'prompt for value', exclusive: ['file'] })
+  json: Flags.boolean({ char: 'j', hidden: false, description: 'value is json' }),
+  yaml: Flags.boolean({ char: 'y', hidden: false, description: 'value is yaml' }),
+  file: Flags.boolean({ char: 'f', description: 'value is a path to a file', exclusive: ['interactive'] }),
+  interactive: Flags.boolean({ char: 'i', description: 'prompt for value', exclusive: ['file'] })
 }
 
 SetCommand.args = [

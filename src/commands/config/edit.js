@@ -15,7 +15,7 @@ const BaseCommand = require('../../base-command')
 
 class EditCommand extends BaseCommand {
   async run () {
-    const { flags } = this.parse(EditCommand)
+    const { flags } = await this.parse(EditCommand)
 
     const file = (flags.local) ? this.cliConfig.local.file : this.cliConfig.global.file
 

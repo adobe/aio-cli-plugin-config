@@ -13,8 +13,19 @@ governing permissions and limitations under the License.
 const TheCommand = require('../../../src/commands/config/clear.js')
 const { mockSet } = require('@adobe/aio-lib-core-config/src/Config')
 
-jest.mock('cli-ux')
-const { cli } = require('cli-ux')
+jest.mock('@oclif/core', () => {
+  return {
+    ...jest.requireActual('@oclif/core'),
+    CliUx: {
+      ux: {
+        cli: {
+          prompt: jest.fn()
+        }
+      }
+    }
+  }
+})
+const { CliUx: { ux: cli } } = require('@oclif/core')
 
 describe('clear', () => {
   afterEach(() => {
