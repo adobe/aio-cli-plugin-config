@@ -1,7 +1,7 @@
 {
   "name": "@adobe/aio-cli-plugin-config",
   "description": "Config Plugin for the Adobe I/O CLI",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "author": "Adobe Inc.",
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
@@ -11,24 +11,26 @@
     "js-yaml": "^3.13.0"
   },
   "devDependencies": {
-    "@adobe/eslint-config-aio-lib-config": "^1.2.0",
+    "@adobe/eslint-config-aio-lib-config": "^1.4.0",
     "acorn": "^8.7.0",
     "chalk": "^4.0.0",
-    "eslint": "^7.12.1",
+    "eslint": "^7.32.0",
     "eslint-config-oclif": "^4.0.0",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-jest": "^23.13.2",
-    "eslint-plugin-jsdoc": "^37",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-promise": "^5",
-    "eslint-plugin-standard": "^5.0.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-jsdoc": "^37.2.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.2.0",
+    "eslint-plugin-standard": "^4.0.1",
     "execa": "^4.0.2",
     "globby": "^11.0.0",
-    "jest": "^27",
-    "jest-haste-map": "^27",
+    "jest": "^27.5.1",
+    "jest-haste-map": "^27.5.1",
     "jest-junit": "^13.0.0",
-    "jest-resolve": "^27",
-    "stdout-stderr": "^0.1.13"
+    "jest-resolve": "^27.5.1",
+    "stdout-stderr": "^0.1.13",
+    "typescript": "^4.5.4"
   },
   "engines": {
     "node": ">=12.0.0"
