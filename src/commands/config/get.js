@@ -10,12 +10,12 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const { Flags } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
 
 class GetCommand extends BaseCommand {
   async run () {
-    const { args, flags } = this.parse(GetCommand)
+    const { args, flags } = await this.parse(GetCommand)
 
     let source
     if (flags.local) source = 'local'
@@ -26,7 +26,7 @@ class GetCommand extends BaseCommand {
 
     if (vars == null || Object.keys(vars).length === 0) return
 
-    this.printObject(vars)
+    await this.printObject(vars)
   }
 }
 
@@ -34,9 +34,9 @@ GetCommand.description = 'gets a persistent config value'
 
 GetCommand.flags = {
   ...BaseCommand.flags,
-  env: flags.boolean({ char: 'e', description: 'environment variables' }),
-  json: flags.boolean({ char: 'j', description: 'output in json', hidden: false, exclusive: ['yaml'] }),
-  yaml: flags.boolean({ char: 'y', description: 'output in yaml', hidden: false, exclusive: ['json'] })
+  env: Flags.boolean({ char: 'e', description: 'environment variables' }),
+  json: Flags.boolean({ char: 'j', description: 'output in json', hidden: false, exclusive: ['yaml'] }),
+  yaml: Flags.boolean({ char: 'y', description: 'output in yaml', hidden: false, exclusive: ['json'] })
 }
 
 GetCommand.args = [

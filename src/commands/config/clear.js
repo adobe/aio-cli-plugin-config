@@ -10,13 +10,12 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { flags } = require('@oclif/command')
+const { Flags, CliUx: { ux: cli } } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
-const { cli } = require('cli-ux')
 
 class ClearCommand extends BaseCommand {
   async run () {
-    const { flags } = this.parse(ClearCommand)
+    const { flags } = await this.parse(ClearCommand)
 
     if (!flags.force) {
       const confirm = await cli.prompt('are you sure? [yN]', { type: 'normal' })
@@ -32,7 +31,7 @@ class ClearCommand extends BaseCommand {
 ClearCommand.description = 'clears all persistent config values'
 ClearCommand.flags = {
   ...BaseCommand.flags,
-  force: flags.boolean({ char: 'f', description: 'do not prompt for confirmation' })
+  force: Flags.boolean({ char: 'f', description: 'do not prompt for confirmation' })
 }
 
 module.exports = ClearCommand
