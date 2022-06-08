@@ -39,10 +39,13 @@ $ aio config --help...
 <!-- commands -->
 * [`aio config`](#aio-config)
 * [`aio config:clear`](#aio-configclear)
+* [`aio config:del KEYS...`](#aio-configdel-keys)
 * [`aio config:delete KEYS...`](#aio-configdelete-keys)
 * [`aio config:edit`](#aio-configedit)
 * [`aio config:get KEY`](#aio-configget-key)
 * [`aio config:list`](#aio-configlist)
+* [`aio config:ls`](#aio-configls)
+* [`aio config:rm KEYS...`](#aio-configrm-keys)
 * [`aio config set key 'a value'       # set key to 'a value'`](#aio-config-set-key-a-value--------set-key-to-a-value)
 
 ## `aio config`
@@ -50,119 +53,146 @@ $ aio config --help...
 list, get, set, delete, and edit persistent configuration data
 
 ```
-list, get, set, delete, and edit persistent configuration data
-
 USAGE
-  $ aio config
+  $ aio config [-l | -g] [-e] [--verbose |  | [-j | -y]]
 
-OPTIONS
+FLAGS
   -e, --env     environment variables
   -g, --global  global config
   -j, --json    output in json
   -l, --local   local config
   -y, --yaml    output in yaml
   --verbose     show all config values
+
+DESCRIPTION
+  list, get, set, delete, and edit persistent configuration data
 
 ALIASES
   $ aio config:ls
 
 EXAMPLES
   $ aio config:list
+
   $ aio config:get KEY
+
   $ aio config:set KEY VALUE
+
   $ aio config:delete KEY
+
   $ aio config:clear
 ```
 
-_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/index.js)_
+_See code: [src/commands/config/index.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/index.ts)_
 
 ## `aio config:clear`
 
 clears all persistent config values
 
 ```
-clears all persistent config values
-
 USAGE
-  $ aio config:clear
+  $ aio config:clear [-l | -g] [-f]
 
-OPTIONS
+FLAGS
   -f, --force   do not prompt for confirmation
   -g, --global  global config
   -l, --local   local config
+
+DESCRIPTION
+  clears all persistent config values
 ```
 
-_See code: [src/commands/config/clear.js](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/clear.js)_
+_See code: [src/commands/config/clear.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/clear.ts)_
 
-## `aio config:delete KEYS...`
+## `aio config:del KEYS...`
 
 deletes persistent config values
 
 ```
-deletes persistent config values
-
 USAGE
-  $ aio config:delete KEYS...
+  $ aio config:del [KEYS...] [-l | -g]
 
-OPTIONS
+FLAGS
   -g, --global  global config
   -l, --local   local config
+
+DESCRIPTION
+  deletes persistent config values
 
 ALIASES
   $ aio config:del
   $ aio config:rm
 ```
 
-_See code: [src/commands/config/delete.js](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/delete.js)_
+## `aio config:delete KEYS...`
+
+deletes persistent config values
+
+```
+USAGE
+  $ aio config:delete [KEYS...] [-l | -g]
+
+FLAGS
+  -g, --global  global config
+  -l, --local   local config
+
+DESCRIPTION
+  deletes persistent config values
+
+ALIASES
+  $ aio config:del
+  $ aio config:rm
+```
+
+_See code: [src/commands/config/delete.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/delete.ts)_
 
 ## `aio config:edit`
 
 edit config file
 
 ```
-edit config file
-
 USAGE
-  $ aio config:edit
+  $ aio config:edit [-l | -g]
 
-OPTIONS
+FLAGS
   -g, --global  global config
   -l, --local   local config
+
+DESCRIPTION
+  edit config file
 ```
 
-_See code: [src/commands/config/edit.js](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/edit.js)_
+_See code: [src/commands/config/edit.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/edit.ts)_
 
 ## `aio config:get KEY`
 
 gets a persistent config value
 
 ```
-gets a persistent config value
-
 USAGE
-  $ aio config:get KEY
+  $ aio config:get [KEY] [-l | -g] [-j | -y] [-e]
 
-OPTIONS
+FLAGS
   -e, --env     environment variables
   -g, --global  global config
   -j, --json    output in json
   -l, --local   local config
   -y, --yaml    output in yaml
+
+DESCRIPTION
+  gets a persistent config value
 ```
 
-_See code: [src/commands/config/get.js](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/get.js)_
+_See code: [src/commands/config/get.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/get.ts)_
 
 ## `aio config:list`
 
 lists all persistent config values
 
 ```
-lists all persistent config values
-
 USAGE
-  $ aio config:list
+  $ aio config:list [-l | -g] [-e] [--verbose |  | [-j | -y]]
 
-OPTIONS
+FLAGS
   -e, --env     environment variables
   -g, --global  global config
   -j, --json    output in json
@@ -170,32 +200,90 @@ OPTIONS
   -y, --yaml    output in yaml
   --verbose     show all config values
 
+DESCRIPTION
+  lists all persistent config values
+
 ALIASES
   $ aio config:ls
 ```
 
-_See code: [src/commands/config/list.js](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/list.js)_
+_See code: [src/commands/config/list.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/list.ts)_
+
+## `aio config:ls`
+
+list, get, set, delete, and edit persistent configuration data
+
+```
+USAGE
+  $ aio config:ls [-l | -g] [-e] [--verbose |  | [-j | -y]]
+
+FLAGS
+  -e, --env     environment variables
+  -g, --global  global config
+  -j, --json    output in json
+  -l, --local   local config
+  -y, --yaml    output in yaml
+  --verbose     show all config values
+
+DESCRIPTION
+  list, get, set, delete, and edit persistent configuration data
+
+ALIASES
+  $ aio config:ls
+
+EXAMPLES
+  $ aio config:list
+
+  $ aio config:get KEY
+
+  $ aio config:set KEY VALUE
+
+  $ aio config:delete KEY
+
+  $ aio config:clear
+```
+
+## `aio config:rm KEYS...`
+
+deletes persistent config values
+
+```
+USAGE
+  $ aio config:rm [KEYS...] [-l | -g]
+
+FLAGS
+  -g, --global  global config
+  -l, --local   local config
+
+DESCRIPTION
+  deletes persistent config values
+
+ALIASES
+  $ aio config:del
+  $ aio config:rm
+```
 
 ## `aio config set key 'a value'       # set key to 'a value'`
 
 sets a persistent config value
 
 ```
-sets a persistent config value
-
 USAGE
   $ aio config set key 'a value'       # set key to 'a value'
   $ aio config set key -f value.json   # set key to the json found in the file value.json
   $ aio config set -j key < value.json # set key to the json found in the file value.json
 
-OPTIONS
+FLAGS
   -f, --file         value is a path to a file
   -g, --global       global config
   -i, --interactive  prompt for value
   -j, --json         value is json
   -l, --local        local config
   -y, --yaml         value is yaml
+
+DESCRIPTION
+  sets a persistent config value
 ```
 
-_See code: [src/commands/config/set.js](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/set.js)_
+_See code: [src/commands/config/set.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/set.ts)_
 <!-- commandsstop -->
