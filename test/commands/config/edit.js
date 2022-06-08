@@ -15,11 +15,11 @@ const TheCommand = require('../../../src/commands/config/edit.js')
 jest.mock('child_process')
 const childProcess = require('child_process')
 const platform = process.platform
+const PRE_ENV = process.env
 
 afterAll(() => {
-  Object.defineProperty(process, 'platform', {
-    value: platform
-  })
+  process.env = PRE_ENV
+  process.platform = platform
 })
 
 describe('get', () => {
@@ -49,10 +49,24 @@ describe('get', () => {
     })
   })
 
+  test('non-default - win32', () => {
+    Object.defineProperty(process, 'platform', {
+      value: 'win32'
+    })
+    process.env.EDITOR = 'winamp'
+
+    return TheCommand.run([]).then(() => {
+      expect(childProcess.spawn).toHaveBeenCalledWith('winamp', ['global'], { detached: true, stdio: 'inherit' })
+    })
+  })
+
   test('default - win32', () => {
     Object.defineProperty(process, 'platform', {
       value: 'win32'
     })
+
+    delete process.env.EDITOR
+
     return TheCommand.run([]).then(() => {
       expect(childProcess.spawn).toHaveBeenCalledWith('notepad', ['global'], { detached: true, stdio: 'inherit' })
     })
@@ -62,6 +76,8 @@ describe('get', () => {
     Object.defineProperty(process, 'platform', {
       value: 'darwin'
     })
+
+    process.env.EDITOR = 'vi'
     return TheCommand.run(['-l']).then(() => {
       expect(childProcess.spawn).toHaveBeenCalledWith('vi', ['local'], { detached: true, stdio: 'inherit' })
     })
@@ -80,6 +96,13 @@ describe('get', () => {
     process.env.EDITOR = 'foobar'
     return TheCommand.run([]).then(() => {
       expect(childProcess.spawn).toHaveBeenCalledWith('foobar', ['global'], { detached: true, stdio: 'inherit' })
+    })
+  })
+
+  test('no default - env', () => {
+    delete process.env.EDITOR
+    return TheCommand.run([]).then(() => {
+      expect(childProcess.spawn).toHaveBeenCalledWith('vi', ['global'], { detached: true, stdio: 'inherit' })
     })
   })
 })

@@ -19,7 +19,9 @@ class EditCommand extends BaseCommand {
 
     const file = (flags.local) ? this.cliConfig.local.file : this.cliConfig.global.file
 
-    const cmd = (process.platform === 'win32') ? `${process.env.EDITOR || 'notepad'}` : `${process.env.EDITOR || 'vi'}`
+    const cmd = (process.platform === 'win32')
+      ? `${process.env.EDITOR || 'notepad'}`
+      : `${process.env.EDITOR || 'vi'}`
     childProcess.spawn(cmd, [file], {
       stdio: 'inherit',
       detached: true
