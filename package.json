@@ -65,22 +65,5 @@
     "postpack": "rm -f oclif.manifest.json",
     "version": "oclif-dev readme && git add README.md",
     "e2e": "jest --collectCoverage=false --testRegex './e2e/e2e.js'"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "testPathIgnorePatterns": [
-      "<rootDir>/tests/fixtures/"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/tests/fixtures/"
-    ],
-    "reporters": [
-      "default",
-      "jest-junit"
-    ],
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "./test/jest.setup.js"
-    ]
   }
 }
