@@ -14,7 +14,7 @@ const BaseCommand = require('../../base-command')
 
 class DeleteCommand extends BaseCommand {
   async run () {
-    const { argv, flags } = this.parse(DeleteCommand)
+    const { argv, flags } = await this.parse(DeleteCommand)
 
     for (const arg of argv) {
       this.cliConfig.set(arg, null, !!flags.local)

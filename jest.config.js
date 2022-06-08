@@ -5,6 +5,16 @@ module.exports = {
   testRegex: '/test/[^_]*/*.js$',
   coverageDirectory: 'tmp/coverage',
   testEnvironment: 'node',
+  "testPathIgnorePatterns": [
+    "<rootDir>/tests/fixtures/"
+  ],
+  "coveragePathIgnorePatterns": [
+    "<rootDir>/tests/fixtures/"
+  ],
+  "reporters": [
+    "default",
+    "jest-junit"
+  ],
   coverageThreshold: {
     global: {
       lines: 100,

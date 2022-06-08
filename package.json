@@ -6,22 +6,16 @@
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
     "@adobe/aio-lib-core-config": "^2.0.0",
-    "@oclif/command": "^1.8.14",
-    "@oclif/config": "^1.18.2",
-    "@oclif/errors": "^1.1.2",
-    "cli-ux": "^5.6.6",
+    "@oclif/core": "^1.3.5",
     "hjson": "^3.2.2",
     "js-yaml": "^3.14.1"
   },
   "devDependencies": {
     "@adobe/eslint-config-aio-lib-config": "^1.4.0",
-    "@oclif/dev-cli": "^1.21.2",
-    "@oclif/plugin-help": "^2.1.4",
-    "@oclif/test": "^1",
-    "acorn": "^7.0.0",
+    "acorn": "^8.7.0",
     "chalk": "^4.0.0",
     "eslint": "^7.32.0",
-    "eslint-config-oclif": "^3.1.0",
+    "eslint-config-oclif": "^4.0.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest": "^23.20.0",
@@ -31,11 +25,11 @@
     "eslint-plugin-standard": "^4.0.1",
     "execa": "^4.0.2",
     "globby": "^11.0.0",
-    "jest": "^24.8.0",
-    "jest-haste-map": "^26.0.0",
-    "jest-junit": "^10.0.0",
-    "jest-resolve": "^26.0.0",
-    "stdout-stderr": "^0.1.9",
+    "jest": "^27.5.1",
+    "jest-haste-map": "^27.5.1",
+    "jest-junit": "^13.0.0",
+    "jest-resolve": "^27.5.1",
+    "stdout-stderr": "^0.1.13",
     "typescript": "^4.5.4"
   },
   "engines": {
@@ -53,9 +47,6 @@
   "oclif": {
     "commands": "./src/commands",
     "bin": "aio",
-    "devPlugins": [
-      "@oclif/plugin-help"
-    ],
     "topics": {
       "config": {
         "description": "get, set, delete, and clear persistent configuration data"
@@ -74,22 +65,5 @@
     "postpack": "rm -f oclif.manifest.json",
     "version": "oclif-dev readme && git add README.md",
     "e2e": "jest --collectCoverage=false --testRegex './e2e/e2e.js'"
-  },
-  "jest": {
-    "collectCoverage": true,
-    "testPathIgnorePatterns": [
-      "<rootDir>/tests/fixtures/"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/tests/fixtures/"
-    ],
-    "reporters": [
-      "default",
-      "jest-junit"
-    ],
-    "testEnvironment": "node",
-    "setupFilesAfterEnv": [
-      "./test/jest.setup.js"
-    ]
   }
 }

@@ -15,11 +15,13 @@ const BaseCommand = require('../../base-command')
 
 class EditCommand extends BaseCommand {
   async run () {
-    const { flags } = this.parse(EditCommand)
+    const { flags } = await this.parse(EditCommand)
 
     const file = (flags.local) ? this.cliConfig.local.file : this.cliConfig.global.file
 
-    const cmd = (process.platform === 'win32') ? `${process.env.EDITOR || 'notepad'}` : `${process.env.EDITOR || 'vi'}`
+    const cmd = (process.platform === 'win32')
+      ? `${process.env.EDITOR || 'notepad'}`
+      : `${process.env.EDITOR || 'vi'}`
     childProcess.spawn(cmd, [file], {
       stdio: 'inherit',
       detached: true
