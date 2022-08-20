@@ -82,7 +82,7 @@ EXAMPLES
   $ aio config:clear
 ```
 
-_See code: [src/commands/config/index.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/index.ts)_
+_See code: [src/commands/config/index.ts](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.0/src/commands/config/index.ts)_
 
 ## `aio config:clear`
 
@@ -101,7 +101,7 @@ DESCRIPTION
   clears all persistent config values
 ```
 
-_See code: [src/commands/config/clear.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/clear.ts)_
+_See code: [src/commands/config/clear.ts](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.0/src/commands/config/clear.ts)_
 
 ## `aio config:del KEYS...`
 
@@ -143,7 +143,7 @@ ALIASES
   $ aio config:rm
 ```
 
-_See code: [src/commands/config/delete.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/delete.ts)_
+_See code: [src/commands/config/delete.ts](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.0/src/commands/config/delete.ts)_
 
 ## `aio config:edit`
 
@@ -161,7 +161,7 @@ DESCRIPTION
   edit config file
 ```
 
-_See code: [src/commands/config/edit.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/edit.ts)_
+_See code: [src/commands/config/edit.ts](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.0/src/commands/config/edit.ts)_
 
 ## `aio config:get KEY`
 
@@ -182,7 +182,7 @@ DESCRIPTION
   gets a persistent config value
 ```
 
-_See code: [src/commands/config/get.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/get.ts)_
+_See code: [src/commands/config/get.ts](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.0/src/commands/config/get.ts)_
 
 ## `aio config:list`
 
@@ -207,7 +207,7 @@ ALIASES
   $ aio config:ls
 ```
 
-_See code: [src/commands/config/list.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/list.ts)_
+_See code: [src/commands/config/list.ts](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.0/src/commands/config/list.ts)_
 
 ## `aio config:ls`
 
@@ -285,5 +285,5 @@ DESCRIPTION
   sets a persistent config value
 ```
 
-_See code: [src/commands/config/set.ts](https://github.com/adobe/aio-cli-plugin-config/blob/3.0.1/src/commands/config/set.ts)_
+_See code: [src/commands/config/set.ts](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.0/src/commands/config/set.ts)_
 <!-- commandsstop -->
