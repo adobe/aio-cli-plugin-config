@@ -29,9 +29,8 @@
     "jest-haste-map": "^27.5.1",
     "jest-junit": "^13.0.0",
     "jest-resolve": "^27.5.1",
-    "oclif": "^3.0.1",
-    "stdout-stderr": "^0.1.13",
-    "typescript": "^4.5.4"
+    "oclif": "^3.2.0",
+    "stdout-stderr": "^0.1.13"
   },
   "engines": {
     "node": "^14.18 || ^16.13 || >=18"
@@ -48,6 +47,7 @@
   "oclif": {
     "commands": "./src/commands",
     "bin": "aio",
+    "topicSeparator": " ",
     "topics": {
       "config": {
         "description": "get, set, delete, and clear persistent configuration data"
@@ -62,7 +62,7 @@
     "test": "npm run unit-tests",
     "pretest": "npm run lint",
     "unit-tests": "jest --ci",
-    "prepack": "oclif manifest && oclif readme",
+    "prepack": "oclif manifest && oclif readme --no-aliases",
     "postpack": "rm -f oclif.manifest.json",
     "version": "oclif readme && git add README.md",
     "e2e": "jest --collectCoverage=false --testRegex './e2e/e2e.js'"
