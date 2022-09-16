@@ -39,10 +39,13 @@ $ aio config --help...
 <!-- commands -->
 * [`aio config`](#aio-config)
 * [`aio config clear`](#aio-config-clear)
+* [`aio config del KEYS...`](#aio-config-del-keys)
 * [`aio config delete KEYS...`](#aio-config-delete-keys)
 * [`aio config edit`](#aio-config-edit)
 * [`aio config get KEY`](#aio-config-get-key)
 * [`aio config list`](#aio-config-list)
+* [`aio config ls`](#aio-config-ls)
+* [`aio config rm KEYS...`](#aio-config-rm-keys)
 * [`aio config set key 'a value'       # set key to 'a value'`](#aio-config-set-key-a-value--------set-key-to-a-value)
 
 ## `aio config`
@@ -79,7 +82,7 @@ EXAMPLES
   $ aio config:clear
 ```
 
-_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.0/src/commands/config/index.js)_
+_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.1/src/commands/config/index.js)_
 
 ## `aio config clear`
 
@@ -96,6 +99,26 @@ FLAGS
 
 DESCRIPTION
   clears all persistent config values
+```
+
+## `aio config del KEYS...`
+
+deletes persistent config values
+
+```
+USAGE
+  $ aio config del [KEYS...] [-l | -g]
+
+FLAGS
+  -g, --global  global config
+  -l, --local   local config
+
+DESCRIPTION
+  deletes persistent config values
+
+ALIASES
+  $ aio config del
+  $ aio config rm
 ```
 
 ## `aio config delete KEYS...`
@@ -174,6 +197,60 @@ DESCRIPTION
 
 ALIASES
   $ aio config ls
+```
+
+## `aio config ls`
+
+list, get, set, delete, and edit persistent configuration data
+
+```
+USAGE
+  $ aio config ls [-l | -g] [-e] [--verbose |  | [-j | -y]]
+
+FLAGS
+  -e, --env     environment variables
+  -g, --global  global config
+  -j, --json    output in json
+  -l, --local   local config
+  -y, --yaml    output in yaml
+  --verbose     show all config values
+
+DESCRIPTION
+  list, get, set, delete, and edit persistent configuration data
+
+ALIASES
+  $ aio config ls
+
+EXAMPLES
+  $ aio config:list
+
+  $ aio config:get KEY
+
+  $ aio config:set KEY VALUE
+
+  $ aio config:delete KEY
+
+  $ aio config:clear
+```
+
+## `aio config rm KEYS...`
+
+deletes persistent config values
+
+```
+USAGE
+  $ aio config rm [KEYS...] [-l | -g]
+
+FLAGS
+  -g, --global  global config
+  -l, --local   local config
+
+DESCRIPTION
+  deletes persistent config values
+
+ALIASES
+  $ aio config del
+  $ aio config rm
 ```
 
 ## `aio config set key 'a value'       # set key to 'a value'`
