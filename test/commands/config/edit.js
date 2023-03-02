@@ -44,6 +44,7 @@ describe('get', () => {
     Object.defineProperty(process, 'platform', {
       value: 'linux'
     })
+    delete process.env.EDITOR
     return TheCommand.run([]).then(() => {
       expect(childProcess.spawn).toHaveBeenCalledWith('vi', ['global'], { detached: true, stdio: 'inherit' })
     })
