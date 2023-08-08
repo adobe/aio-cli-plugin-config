@@ -54,7 +54,7 @@ class SetCommand extends BaseCommand {
       if (flags.json) {
         value = hjson.parse(value)
       } else if (flags.yaml) {
-        value = yaml.safeLoad(value)
+        value = yaml.load(value)
       }
     } catch (e) {
       this.error(`Cannot parse ${flags.json ? 'json' : 'yaml'}`)
