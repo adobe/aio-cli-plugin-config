@@ -47,19 +47,19 @@ describe('set', () => {
 
   test('default', async () => {
     command.argv = ['a-key', 'value']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
   test('local', async () => {
     command.argv = ['-l', 'a-key', 'value']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'value', true)
   })
 
   test('global', async () => {
     command.argv = ['-g', 'a-key', 'value']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
@@ -72,7 +72,7 @@ describe('set', () => {
     config.getPipedData.mockResolvedValue('a file')
 
     command.argv = ['-g', 'a-key']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
 
     expect(config.getPipedData).toHaveBeenCalledWith()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'a file', false)
@@ -80,13 +80,13 @@ describe('set', () => {
 
   test('parse key=value', async () => {
     command.argv = ['a-key=value']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
   test('parse json', async () => {
     command.argv = ['a-key', '-j', '{a:1}']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: 1 }, false)
   })
 
@@ -102,31 +102,31 @@ describe('set', () => {
 
   test('parse yaml', async () => {
     command.argv = ['a-key', '-y', 'a:\n  b: true']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: true } }, false)
   })
 
   test('json file', async () => {
     command.argv = ['a-key', '-f', './test/__fixtures__/a.json']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: 12 }, false)
   })
 
   test('yaml file', async () => {
     command.argv = ['a-key', '-f', './test/__fixtures__/a.yaml']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: 12 } }, false)
   })
 
   test('yml file', async () => {
     command.argv = ['a-key', '-f', './test/__fixtures__/a.yml']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: 12 } }, false)
   })
 
   test('other file', async () => {
     command.argv = ['a-key', '-f', './test/__fixtures__/a.txt']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'raw data', false)
   })
 
@@ -145,7 +145,7 @@ describe('set', () => {
     cli.prompt = jest.fn(() => 'a value')
 
     command.argv = ['a-key', '-i']
-    await expect(command.run()).resolves.not.toThrowError()
+    await expect(command.run()).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'a value', false)
   })
 })
