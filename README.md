@@ -82,7 +82,7 @@ EXAMPLES
   $ aio config:clear
 ```
 
-_See code: [src/commands/config/index.js](https://github.com/adobe/aio-cli-plugin-config/blob/4.0.1/src/commands/config/index.js)_
+_See code: [src/commands/config/index.ts](https://github.com/adobe/aio-cli-plugin-config/blob/5.0.0/src/commands/config/index.ts)_
 
 ## `aio config clear`
 
@@ -101,13 +101,15 @@ DESCRIPTION
   clears all persistent config values
 ```
 
+_See code: [src/commands/config/clear.ts](https://github.com/adobe/aio-cli-plugin-config/blob/5.0.0/src/commands/config/clear.ts)_
+
 ## `aio config del KEYS...`
 
 deletes persistent config values
 
 ```
 USAGE
-  $ aio config del [KEYS...] [-l | -g]
+  $ aio config del KEYS... [-l | -g]
 
 FLAGS
   -g, --global  global config
@@ -127,7 +129,7 @@ deletes persistent config values
 
 ```
 USAGE
-  $ aio config delete [KEYS...] [-l | -g]
+  $ aio config delete KEYS... [-l | -g]
 
 FLAGS
   -g, --global  global config
@@ -140,6 +142,8 @@ ALIASES
   $ aio config del
   $ aio config rm
 ```
+
+_See code: [src/commands/config/delete.ts](https://github.com/adobe/aio-cli-plugin-config/blob/5.0.0/src/commands/config/delete.ts)_
 
 ## `aio config edit`
 
@@ -157,13 +161,15 @@ DESCRIPTION
   edit config file
 ```
 
+_See code: [src/commands/config/edit.ts](https://github.com/adobe/aio-cli-plugin-config/blob/5.0.0/src/commands/config/edit.ts)_
+
 ## `aio config get KEY`
 
 gets a persistent config value
 
 ```
 USAGE
-  $ aio config get [KEY] [-l | -g] [-j | -y] [-e]
+  $ aio config get KEY [-l | -g] [-j | -y] [-e]
 
 FLAGS
   -e, --env     environment variables
@@ -175,6 +181,8 @@ FLAGS
 DESCRIPTION
   gets a persistent config value
 ```
+
+_See code: [src/commands/config/get.ts](https://github.com/adobe/aio-cli-plugin-config/blob/5.0.0/src/commands/config/get.ts)_
 
 ## `aio config list`
 
@@ -198,6 +206,8 @@ DESCRIPTION
 ALIASES
   $ aio config ls
 ```
+
+_See code: [src/commands/config/list.ts](https://github.com/adobe/aio-cli-plugin-config/blob/5.0.0/src/commands/config/list.ts)_
 
 ## `aio config ls`
 
@@ -239,7 +249,7 @@ deletes persistent config values
 
 ```
 USAGE
-  $ aio config rm [KEYS...] [-l | -g]
+  $ aio config rm KEYS... [-l | -g]
 
 FLAGS
   -g, --global  global config
@@ -274,4 +284,6 @@ FLAGS
 DESCRIPTION
   sets a persistent config value
 ```
+
+_See code: [src/commands/config/set.ts](https://github.com/adobe/aio-cli-plugin-config/blob/5.0.0/src/commands/config/set.ts)_
 <!-- commandsstop -->
