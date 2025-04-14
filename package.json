@@ -30,7 +30,7 @@
     "jest-haste-map": "^29.5.0",
     "jest-junit": "^16.0.0",
     "jest-resolve": "^29.5.0",
-    "oclif": "^3.2.0",
+    "oclif": "^4.17.44",
     "stdout-stderr": "^0.1.13"
   },
   "engines": {
