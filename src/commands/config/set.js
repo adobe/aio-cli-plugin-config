@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Flags, CliUx: { ux: cli } } = require('@oclif/core')
+const { Flags, Args, ux } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
 const fs = require('fs')
 const yaml = require('js-yaml')
@@ -39,7 +39,7 @@ class SetCommand extends BaseCommand {
         this.error(`Cannot read file: ${value}`)
       }
     } else if (flags.interactive) {
-      value = await cli.prompt('value', { type: 'normal' })
+      value = await ux.prompt('value', { type: 'normal' })
     } else if (value == null) {
       if (args.key.indexOf('=') > 0) {
         const parts = args.key.split('=')
@@ -83,9 +83,9 @@ SetCommand.flags = {
   interactive: Flags.boolean({ char: 'i', description: 'prompt for value', exclusive: ['file'] })
 }
 
-SetCommand.args = [
-  { name: 'key', required: true },
-  { name: 'value|filename', required: false }
-]
+SetCommand.args = {
+  key: Args.string({ required: true }),
+  'value|filename': Args.string({ required: false })
+}
 
 module.exports = SetCommand
