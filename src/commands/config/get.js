@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Flags } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
 
 class GetCommand extends BaseCommand {
@@ -39,8 +39,8 @@ GetCommand.flags = {
   yaml: Flags.boolean({ char: 'y', description: 'output in yaml', hidden: false, exclusive: ['json'] })
 }
 
-GetCommand.args = [
-  { name: 'key', required: true }
-]
+GetCommand.args = {
+  key: Args.string({ required: true })
+}
 
 module.exports = GetCommand

@@ -16,16 +16,12 @@ const { mockSet } = require('@adobe/aio-lib-core-config/src/Config')
 jest.mock('@oclif/core', () => {
   return {
     ...jest.requireActual('@oclif/core'),
-    CliUx: {
-      ux: {
-        cli: {
-          prompt: jest.fn()
-        }
-      }
+    ux: {
+      prompt: jest.fn()
     }
   }
 })
-const { CliUx: { ux: cli } } = require('@oclif/core')
+const { ux } = require('@oclif/core')
 
 describe('clear', () => {
   afterEach(() => {
@@ -55,14 +51,14 @@ describe('clear', () => {
   })
 
   test('prompt with yes', () => {
-    cli.prompt = jest.fn(() => 'y')
+    ux.prompt = jest.fn(() => 'y')
     return TheCommand.run([]).then(() => {
       expect(mockSet).toHaveBeenCalledWith(null, null, false)
     })
   })
 
   test('prompt with no', () => {
-    cli.prompt = jest.fn(() => 'n')
+    ux.prompt = jest.fn(() => 'n')
     return TheCommand.run([]).then(() => {
       expect(mockSet).not.toHaveBeenCalled()
     })

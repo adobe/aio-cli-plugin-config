@@ -10,21 +10,17 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
+const { ux } = require('@oclif/core')
 const TheCommand = require('../../../src/commands/config/set.js')
 const config = require('@adobe/aio-lib-core-config')
 const path = require('path')
 const { mockSet } = require('@adobe/aio-lib-core-config/src/Config')
 
-const { CliUx: { ux: cli } } = require('@oclif/core')
 jest.mock('@oclif/core', () => {
   return {
     ...jest.requireActual('@oclif/core'),
-    CliUx: {
-      ux: {
-        cli: {
-          prompt: jest.fn()
-        }
-      }
+    ux: {
+      prompt: jest.fn()
     }
   }
 })
@@ -142,7 +138,7 @@ describe('set', () => {
 
   test('prompt for value', async () => {
     config.getPipedData.mockResolvedValue(null)
-    cli.prompt = jest.fn(() => 'a value')
+    ux.prompt = jest.fn(() => 'a value')
 
     command.argv = ['a-key', '-i']
     await expect(command.run()).resolves.not.toThrow()

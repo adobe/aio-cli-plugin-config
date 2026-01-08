@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Flags, CliUx: { ux: cli } } = require('@oclif/core')
+const { Flags, ux } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
 
 class ClearCommand extends BaseCommand {
@@ -18,7 +18,7 @@ class ClearCommand extends BaseCommand {
     const { flags } = await this.parse(ClearCommand)
 
     if (!flags.force) {
-      const confirm = await cli.prompt('are you sure? [yN]', { type: 'normal' })
+      const confirm = await ux.prompt('are you sure? [yN]', { type: 'normal' })
       if (!confirm[0] || confirm[0].toLowerCase() !== 'y') {
         return
       }
