@@ -10,7 +10,7 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const readline = require('readline')
+const { input } = require('@inquirer/prompts')
 
 /**
  * Prompts the user for input.
@@ -19,13 +19,7 @@ const readline = require('readline')
  * @returns {Promise<string>} the user's input
  */
 async function prompt (message) {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
-  return new Promise((resolve) => {
-    rl.question(`${message}: `, (answer) => {
-      rl.close()
-      resolve(answer)
-    })
-  })
+  return input({ message })
 }
 
 module.exports = { prompt }

@@ -6,6 +6,7 @@
   "bugs": "https://github.com/adobe/aio-cli-plugin-config/issues",
   "dependencies": {
     "@adobe/aio-lib-core-config": "^5",
+    "@inquirer/prompts": "^7.0.0",
     "@oclif/core": "^4.0.0",
     "hjson": "^3.2.2",
     "js-yaml": "^4.1.0"

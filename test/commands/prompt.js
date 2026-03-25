@@ -10,23 +10,20 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const readline = require('readline')
 const { prompt } = require('../../src/prompt')
 
-jest.mock('readline')
+jest.mock('@inquirer/prompts', () => ({
+  input: jest.fn()
+}))
+const { input } = require('@inquirer/prompts')
 
 describe('prompt', () => {
   test('returns user input', async () => {
-    const mockClose = jest.fn()
-    const userAnswer = 'user answer'
-    const mockQuestion = jest.fn((msg, cb) => cb(userAnswer))
-    readline.createInterface.mockReturnValue({ question: mockQuestion, close: mockClose })
+    input.mockResolvedValue('user answer')
 
     const result = await prompt('enter value')
 
-    expect(readline.createInterface).toHaveBeenCalledWith({ input: process.stdin, output: process.stdout })
-    expect(mockQuestion).toHaveBeenCalledWith('enter value: ', expect.any(Function))
-    expect(mockClose).toHaveBeenCalled()
+    expect(input).toHaveBeenCalledWith({ message: 'enter value' })
     expect(result).toEqual('user answer')
   })
 })
