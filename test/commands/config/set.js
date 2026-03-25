@@ -10,26 +10,18 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { ux } = require('@oclif/core')
 const TheCommand = require('../../../src/commands/config/set.js')
 const config = require('@adobe/aio-lib-core-config')
 const path = require('path')
 const { mockSet } = require('@adobe/aio-lib-core-config/src/Config')
 
-jest.mock('@oclif/core', () => {
-  return {
-    ...jest.requireActual('@oclif/core'),
-    ux: {
-      prompt: jest.fn()
-    }
-  }
-})
+jest.mock('../../../src/prompt', () => ({
+  prompt: jest.fn()
+}))
+const { prompt } = require('../../../src/prompt')
 
 describe('set', () => {
-  let command
-
   beforeEach(() => {
-    command = new TheCommand([])
     mockSet.mockImplementation(() => { return { a: 12 } })
   })
 
@@ -42,106 +34,89 @@ describe('set', () => {
   })
 
   test('default', async () => {
-    command.argv = ['a-key', 'value']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key', 'value'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
   test('local', async () => {
-    command.argv = ['-l', 'a-key', 'value']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['-l', 'a-key', 'value'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'value', true)
   })
 
   test('global', async () => {
-    command.argv = ['-g', 'a-key', 'value']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['-g', 'a-key', 'value'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
   test('no value', async () => {
-    command.argv = ['a-key']
-    await expect(command.run()).rejects.toEqual(new Error('Missing value'))
+    await expect(TheCommand.run(['a-key'])).rejects.toEqual(new Error('Missing value'))
   })
 
   test('get piped data', async () => {
     config.getPipedData.mockResolvedValue('a file')
 
-    command.argv = ['-g', 'a-key']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['-g', 'a-key'])).resolves.not.toThrow()
 
     expect(config.getPipedData).toHaveBeenCalledWith()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'a file', false)
   })
 
   test('parse key=value', async () => {
-    command.argv = ['a-key=value']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key=value'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'value', false)
   })
 
   test('parse json', async () => {
-    command.argv = ['a-key', '-j', '{a:1}']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key', '-j', '{a:1}'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: 1 }, false)
   })
 
   test('throw error on bad yaml parsing', async () => {
-    command.argv = ['a-key', '-y', 'a:\nhy    ']
-    await expect(command.run()).rejects.toEqual(new Error('Cannot parse yaml'))
+    await expect(TheCommand.run(['a-key', '-y', 'a:\nhy    '])).rejects.toEqual(new Error('Cannot parse yaml'))
   })
 
   test('throw error on bad json parsing', async () => {
-    command.argv = ['a-key', '-j', '{a:1\n']
-    await expect(command.run()).rejects.toEqual(new Error('Cannot parse json'))
+    await expect(TheCommand.run(['a-key', '-j', '{a:1\n'])).rejects.toEqual(new Error('Cannot parse json'))
   })
 
   test('parse yaml', async () => {
-    command.argv = ['a-key', '-y', 'a:\n  b: true']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key', '-y', 'a:\n  b: true'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: true } }, false)
   })
 
   test('json file', async () => {
-    command.argv = ['a-key', '-f', './test/__fixtures__/a.json']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key', '-f', './test/__fixtures__/a.json'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: 12 }, false)
   })
 
   test('yaml file', async () => {
-    command.argv = ['a-key', '-f', './test/__fixtures__/a.yaml']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key', '-f', './test/__fixtures__/a.yaml'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: 12 } }, false)
   })
 
   test('yml file', async () => {
-    command.argv = ['a-key', '-f', './test/__fixtures__/a.yml']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key', '-f', './test/__fixtures__/a.yml'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', { a: { b: 12 } }, false)
   })
 
   test('other file', async () => {
-    command.argv = ['a-key', '-f', './test/__fixtures__/a.txt']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key', '-f', './test/__fixtures__/a.txt'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'raw data', false)
   })
 
   test('file but no value', async () => {
-    command.argv = ['a-key', '-f']
-    await expect(command.run()).rejects.toEqual(new Error('Missing filename'))
+    await expect(TheCommand.run(['a-key', '-f'])).rejects.toEqual(new Error('Missing filename'))
   })
 
   test('file but not exists', async () => {
-    command.argv = ['a-key', '-f', '/doesnotexist']
-    await expect(command.run()).rejects.toEqual(new Error(`Cannot read file: ${path.resolve('/doesnotexist')}`))
+    await expect(TheCommand.run(['a-key', '-f', '/doesnotexist'])).rejects.toEqual(new Error(`Cannot read file: ${path.resolve('/doesnotexist')}`))
   })
 
   test('prompt for value', async () => {
     config.getPipedData.mockResolvedValue(null)
-    ux.prompt = jest.fn(() => 'a value')
+    prompt.mockResolvedValue('a value')
 
-    command.argv = ['a-key', '-i']
-    await expect(command.run()).resolves.not.toThrow()
+    await expect(TheCommand.run(['a-key', '-i'])).resolves.not.toThrow()
     expect(mockSet).toHaveBeenCalledWith('a-key', 'a value', false)
   })
 })
