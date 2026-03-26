@@ -31,11 +31,6 @@
   "engines": {
     "node": ">=18"
   },
-  "overrides": {
-    "neostandard": {
-      "find-up": "^5.0.0"
-    }
-  },
   "files": [
     "/oclif.manifest.json",
     "/src"
