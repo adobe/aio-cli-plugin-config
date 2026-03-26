@@ -10,10 +10,10 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-import aioLibConfig from '@adobe/eslint-config-aio-lib-config'
-import jest from 'eslint-plugin-jest'
+const aioLibConfig = require('@adobe/eslint-config-aio-lib-config')
+const jest = require('eslint-plugin-jest')
 
-export default [
+module.exports = [
   { ignores: ['tmp'] },
   ...aioLibConfig,
   jest.configs['flat/recommended'],
