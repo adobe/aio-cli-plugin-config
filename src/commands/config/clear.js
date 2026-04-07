@@ -10,15 +10,16 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Flags, ux } = require('@oclif/core')
+const { Flags } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
+const { prompt } = require('../../prompt')
 
 class ClearCommand extends BaseCommand {
   async run () {
     const { flags } = await this.parse(ClearCommand)
 
     if (!flags.force) {
-      const confirm = await ux.prompt('are you sure? [yN]', { type: 'normal' })
+      const confirm = await prompt('are you sure? [yN]')
       if (!confirm[0] || confirm[0].toLowerCase() !== 'y') {
         return
       }

@@ -13,15 +13,10 @@ governing permissions and limitations under the License.
 const TheCommand = require('../../../src/commands/config/clear.js')
 const { mockSet } = require('@adobe/aio-lib-core-config/src/Config')
 
-jest.mock('@oclif/core', () => {
-  return {
-    ...jest.requireActual('@oclif/core'),
-    ux: {
-      prompt: jest.fn()
-    }
-  }
-})
-const { ux } = require('@oclif/core')
+jest.mock('../../../src/prompt', () => ({
+  prompt: jest.fn()
+}))
+const { prompt } = require('../../../src/prompt')
 
 describe('clear', () => {
   afterEach(() => {
@@ -51,14 +46,14 @@ describe('clear', () => {
   })
 
   test('prompt with yes', () => {
-    ux.prompt = jest.fn(() => 'y')
+    prompt.mockResolvedValue('y')
     return TheCommand.run([]).then(() => {
       expect(mockSet).toHaveBeenCalledWith(null, null, false)
     })
   })
 
   test('prompt with no', () => {
-    ux.prompt = jest.fn(() => 'n')
+    prompt.mockResolvedValue('n')
     return TheCommand.run([]).then(() => {
       expect(mockSet).not.toHaveBeenCalled()
     })

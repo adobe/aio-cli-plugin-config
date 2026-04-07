@@ -15,6 +15,8 @@ const TheCommand = require('../../src/base-command')
 const { stdout } = require('stdout-stderr')
 const hjson = require('hjson')
 
+const mockConfig = { runHook: async () => ({ successes: [], failures: [] }) }
+
 describe('base-command', () => {
   test('exports', () => {
     expect(typeof TheCommand).toEqual('function')
@@ -29,7 +31,7 @@ describe('base-command', () => {
     let command
 
     beforeEach(() => {
-      command = new TheCommand([], { })
+      command = new TheCommand([], mockConfig)
     })
 
     describe('printObject', () => {
@@ -43,13 +45,13 @@ describe('base-command', () => {
       })
 
       test('yaml', async () => {
-        command = new TheCommand(['--yaml'], { })
+        command = new TheCommand(['--yaml'], mockConfig)
         await command.printObject({ foo: { bar: true } })
         expect(stdout.output).toEqual('foo:\n  bar: true\n\n')
       })
 
       test('json', async () => {
-        command = new TheCommand(['--json'], { })
+        command = new TheCommand(['--json'], mockConfig)
         await command.printObject({ foo: { bar: true } })
         expect(stdout.output).toEqual('{"foo":{"bar":true}}\n')
       })

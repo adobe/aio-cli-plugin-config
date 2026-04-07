@@ -10,13 +10,14 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { Flags, Args, ux } = require('@oclif/core')
+const { Flags, Args } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
 const fs = require('fs')
 const yaml = require('js-yaml')
 const hjson = require('hjson')
 const { getPipedData } = require('@adobe/aio-lib-core-config')
 const path = require('path')
+const { prompt } = require('../../prompt')
 
 class SetCommand extends BaseCommand {
   async run () {
@@ -39,7 +40,7 @@ class SetCommand extends BaseCommand {
         this.error(`Cannot read file: ${value}`)
       }
     } else if (flags.interactive) {
-      value = await ux.prompt('value', { type: 'normal' })
+      value = await prompt('value')
     } else if (value == null) {
       if (args.key.indexOf('=') > 0) {
         const parts = args.key.split('=')
