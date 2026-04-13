@@ -10,10 +10,17 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { input } = require('@inquirer/prompts')
+const { input, confirm } = require('@inquirer/prompts')
+
+// @inquirer/core pipes a MuteStream to process.stdout on every prompt call,
+// adding an 'error' listener each time. oclif's plugin loading fills most of
+// the default 10-slot budget before we even get here, so bump the limit to
+// avoid the MaxListenersExceededWarning.
+process.stdout.setMaxListeners(Math.max(process.stdout.getMaxListeners(), 20))
+process.stderr.setMaxListeners(Math.max(process.stderr.getMaxListeners(), 20))
 
 /**
- * Prompts the user for input.
+ * Prompts the user for text input.
  *
  * @param {string} message - the prompt message to display
  * @returns {Promise<string>} the user's input
@@ -22,4 +29,15 @@ async function prompt (message) {
   return input({ message })
 }
 
-module.exports = { prompt }
+/**
+ * Prompts the user for a yes/no confirmation.
+ *
+ * @param {string} message - the prompt message to display
+ * @param {boolean} [defaultValue=false] - the default value if the user just presses Enter
+ * @returns {Promise<boolean>} true if the user confirmed
+ */
+async function promptConfirm (message, defaultValue = false) {
+  return confirm({ message, default: defaultValue })
+}
+
+module.exports = { prompt, promptConfirm }
