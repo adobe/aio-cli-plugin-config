@@ -14,9 +14,10 @@ const TheCommand = require('../../../src/commands/config/clear.js')
 const { mockSet } = require('@adobe/aio-lib-core-config/src/Config')
 
 jest.mock('../../../src/prompt', () => ({
-  prompt: jest.fn()
+  prompt: jest.fn(),
+  promptConfirm: jest.fn()
 }))
-const { prompt } = require('../../../src/prompt')
+const { promptConfirm } = require('../../../src/prompt')
 
 describe('clear', () => {
   afterEach(() => {
@@ -46,14 +47,14 @@ describe('clear', () => {
   })
 
   test('prompt with yes', () => {
-    prompt.mockResolvedValue('y')
+    promptConfirm.mockResolvedValue(true)
     return TheCommand.run([]).then(() => {
       expect(mockSet).toHaveBeenCalledWith(null, null, false)
     })
   })
 
   test('prompt with no', () => {
-    prompt.mockResolvedValue('n')
+    promptConfirm.mockResolvedValue(false)
     return TheCommand.run([]).then(() => {
       expect(mockSet).not.toHaveBeenCalled()
     })

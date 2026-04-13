@@ -33,7 +33,7 @@ async function prompt (message) {
  * Prompts the user for a yes/no confirmation.
  *
  * @param {string} message - the prompt message to display
- * @param {boolean} [defaultValue=false] - the default value if the user just presses Enter
+ * @param {boolean} defaultValue - the default value if the user just presses Enter (default: false)
  * @returns {Promise<boolean>} true if the user confirmed
  */
 async function promptConfirm (message, defaultValue = false) {
