@@ -10,12 +10,13 @@ OF ANY KIND, either express or implied. See the License for the specific languag
 governing permissions and limitations under the License.
 */
 
-const { prompt } = require('../../src/prompt')
+const { prompt, promptConfirm } = require('../../src/prompt')
 
 jest.mock('@inquirer/prompts', () => ({
-  input: jest.fn()
+  input: jest.fn(),
+  confirm: jest.fn()
 }))
-const { input } = require('@inquirer/prompts')
+const { input, confirm } = require('@inquirer/prompts')
 
 describe('prompt', () => {
   test('returns user input', async () => {
@@ -25,5 +26,33 @@ describe('prompt', () => {
 
     expect(input).toHaveBeenCalledWith({ message: 'enter value' })
     expect(result).toEqual('user answer')
+  })
+})
+
+describe('promptConfirm', () => {
+  test('returns true when confirmed', async () => {
+    confirm.mockResolvedValue(true)
+
+    const result = await promptConfirm('are you sure?')
+
+    expect(confirm).toHaveBeenCalledWith({ message: 'are you sure?', default: false })
+    expect(result).toBe(true)
+  })
+
+  test('returns false when denied', async () => {
+    confirm.mockResolvedValue(false)
+
+    const result = await promptConfirm('are you sure?')
+
+    expect(confirm).toHaveBeenCalledWith({ message: 'are you sure?', default: false })
+    expect(result).toBe(false)
+  })
+
+  test('passes custom default value', async () => {
+    confirm.mockResolvedValue(true)
+
+    await promptConfirm('proceed?', true)
+
+    expect(confirm).toHaveBeenCalledWith({ message: 'proceed?', default: true })
   })
 })

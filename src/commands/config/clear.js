@@ -12,15 +12,15 @@ governing permissions and limitations under the License.
 
 const { Flags } = require('@oclif/core')
 const BaseCommand = require('../../base-command')
-const { prompt } = require('../../prompt')
+const { promptConfirm } = require('../../prompt')
 
 class ClearCommand extends BaseCommand {
   async run () {
     const { flags } = await this.parse(ClearCommand)
 
     if (!flags.force) {
-      const confirm = await prompt('are you sure? [yN]')
-      if (!confirm[0] || confirm[0].toLowerCase() !== 'y') {
+      const confirmed = await promptConfirm('are you sure?')
+      if (!confirmed) {
         return
       }
     }
